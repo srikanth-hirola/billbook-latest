@@ -618,7 +618,7 @@ const AddInvoice = () => {
 
 
   const handleInputChange = (fieldName, value, index) => {
-    setFormData({ ...formData, [fieldName]: value });
+    // setFormData({ ...formData, [fieldName]: value });
     setFormData((prevData) => {
       const updatedState = { ...prevData };
       const updatevar = { ...updatedState.table[index] };
@@ -965,6 +965,7 @@ const AddInvoice = () => {
 
       if (field === "totalAmount" && !isNaN(newTotalAmount)) {
         const newprice = newTotalAmount / (1 + gstrate / 100);
+        console.log("newprice", newprice.toFixed(2))
 
         updatedItem.price =
           newprice / previousQuantity + previousDiscountAmount;

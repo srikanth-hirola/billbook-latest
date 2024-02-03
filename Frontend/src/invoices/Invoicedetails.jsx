@@ -27,7 +27,7 @@ const Invoicedetails = () => {
   const [amount, setAmount] = useState("");
   const [balance, setBalance] = useState(0);
   const [LastPaymentBalance, setLastPaymentBalance] = useState(0);
-  const [isSaveDisabled, setIsSaveDisabled] = useState(true);
+  // const [isSaveDisabled, setIsSaveDisabled] = useState(true);
 
   const openDatePicker = () => {
     datepickerRef.setOpen(true);
@@ -144,9 +144,9 @@ const Invoicedetails = () => {
     }
   };
 
-  useEffect(() => {
-    setIsSaveDisabled(parseFloat(balance) === 0);
-  }, [balance]);
+  // useEffect(() => {
+  //   setIsSaveDisabled(parseFloat(balance) === 0);
+  // }, [balance]);
 
   const openPaymentInModal = () => {
     $("#paymentInModal").modal("show");
@@ -217,9 +217,9 @@ const Invoicedetails = () => {
     }
   };
   
-  useEffect(() => {
-    setIsSaveDisabled(false); 
-  }, [amount]); 
+  // useEffect(() => {
+  //   setIsSaveDisabled(false); 
+  // }, [amount]); 
   
 
 
@@ -470,11 +470,9 @@ const Invoicedetails = () => {
                     </button>
                     <button
                       type="button"
-                      className={`btn btn-primary ${
-                        isSaveDisabled ? "disabled" : ""
-                      }`}
+                      className={`btn btn-primary`}
                       onClick={handleSavePayment}
-                      disabled={isSaveDisabled}
+                      // disabled={isSaveDisabled}
                     >
                       Save Payment
                     </button>
