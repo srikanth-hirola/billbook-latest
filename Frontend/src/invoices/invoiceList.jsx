@@ -46,24 +46,6 @@ const InvoiceList = () => {
     onChange: onSelectChange,
   };
 
-  // const record = {
-  //   invoiceDate: "2024-01-31T09:05:08.000Z",
-  //   dueDate: "2024-02-15T00:00:00.000Z",
-  //   // ... other properties
-  // };
-
-  // const formattedInvoiceDate = invoiceDate.toLocaleDateString('en-GB', {
-  //   year: 'numeric',
-  //   month: '2-digit',
-  //   day: '2-digit',
-  // });
-
-  // const formattedDueDate = dueDate.toLocaleDateString('en-GB', {
-  //   year: 'numeric',
-  //   month: '2-digit',
-  //   day: '2-digit',
-  // });
-
   const handleDeleteInvoice = async (invoiceId) => {
     try {
       const response = await axios.delete(
@@ -145,8 +127,6 @@ const InvoiceList = () => {
       ),
       sorter: (a, b) => a.customerName.length - b.customerName.length,
     },
-    
-
     {
       title: "Created On",
       dataIndex: "invoiceDate",
@@ -163,7 +143,6 @@ const InvoiceList = () => {
         return <span>{formattedDate}</span>;
       },
     },
-
     {
       title: "Total Amount",
       dataIndex: ["grandTotal"],
@@ -173,26 +152,7 @@ const InvoiceList = () => {
       title: "Balance", 
       dataIndex: "balance",
       sorter: (a, b) => a.balance.length - b.balance.length,
-      // render: (payments, record) => {
-      //   if (payments.length > 0) {
-      //     const lastPayment = payments[payments.length - 1];
-      //     const lastPaymentBalance = lastPayment ? lastPayment.balance : 0;
-      //     return <span>{lastPaymentBalance}</span>;
-      //   } else {
-      //     return <span>{record.grandTotal}</span>;
-      //   }
-      // },
-      // sorter: (a, b) => {
-      //   const lastBalanceA =
-      //     a.payments.length > 0 ? a.payments[a.payments.length - 1].balance : 0;
-      //   const lastBalanceB =
-      //     b.payments.length > 0 ? b.payments[b.payments.length - 1].balance : 0;
-
-      //   return lastBalanceA - lastBalanceB;
-      // },
-
     },
-
     {
       title: "Due Date",
       dataIndex: "dueDate",
@@ -211,39 +171,8 @@ const InvoiceList = () => {
     },
     {
       title: "Status",
-      dataIndex: "balance",
-      // render: (payments, record) => {
-        
-      //   if (payments.length > 0) {
-         
-      //     const lastPayment = payments[payments.length - 1];
-      //     const invoiceDate = new Date(record.invoiceDate);
-      //     const dueDate = new Date(record.dueDate);
-
-          
-      //     if (lastPayment.balance === 0) {
-      //       return <span className={`badge bg-success-light`}>Paid</span>;
-      //     } else if (invoiceDate > dueDate) {
-            
-      //       const overdueDays = Math.floor(
-      //         (invoiceDate - dueDate) / (1000 * 60 * 60 * 24)
-      //       );
-      //       return (
-      //         <span className={`badge bg-danger-light`}>
-      //           Overdue by {overdueDays} days
-      //         </span>
-      //       );
-      //     } else {
-            
-      //       return (
-      //         <span className={`badge bg-warning-light text-warning`}>Partially Paid</span>
-      //       );
-      //     }
-      //   } else {
-         
-      //     return <span className={`badge bg-success-light`}>Unpaid</span>;
-      //   }
-      // },
+      dataIndex: "invoiceStatus",
+      sorter: (a, b) => a.invoiceStatus.length - b.invoiceStatus.length,
     },
 
     {
@@ -292,33 +221,12 @@ const InvoiceList = () => {
     },
   ];
 
-
-  // const checkingstatus1 = datasource.map(items => items.payments.map(payment => payment.paymentStatus));
-  // console.log("checkingstatus1", checkingstatus1)
-
-  // const checkingstatus = datasource.map((items) => (
-  //   items.payments.map((items1) => (
-  //     items1.paymentStatus === "Paid")
-  //   )));
-  // console.log("checkingstatus", checkingstatus)
-
   const columns = [
     {
       title: "Invoice ID",
       dataIndex: "invoiceNumber",
-      // render: (text, record) => (
-      //   // <Link to="/invoice-details" className="invoice-link">
-      //   //   {record.Invoice}
-      //   // </Link>
-      // ),
       sorter: (a, b) => a.invoiceNumber.length - b.invoiceNumber.length,
     },
-    // {
-    //   title: "Category",
-    //   dataIndex: "category",
-    //   sorter: (a, b) => a.category.length - b.category.length,
-    // },
-
     {
       title: "Invoice To",
       dataIndex: "customerName",
@@ -334,27 +242,10 @@ const InvoiceList = () => {
           <ul>
             <li>{customerName?.name}</li>
           </ul>
-
-          {/* <Link to="/profile">
-            {record.customerName} <span>{record.email}</span>
-          </Link> */}
         </h2>
       ),
       sorter: (a, b) => a.customerName.length - b.customerName.length,
     },
-    // {
-    //   title: "Invoice To",
-    //   dataIndex: "customerName",
-    //   render: (customerName) => (
-    //     <>
-    //     <ul>
-    //         <li>{customerName.name}</li>
-    //     </ul>
-    //     </>
-
-    //   ),
-    //   sorter: (a, b) => a.customerName.length - b.customerName.length,
-    // },
     {
       title: "Created On",
       dataIndex: "invoiceDate",
@@ -371,85 +262,16 @@ const InvoiceList = () => {
         return <span>{formattedDate}</span>;
       },
     },
-
     {
       title: "Total Amount",
       dataIndex: ["grandTotal"],
       sorter: (a, b) => a.grandTotal.length - b.grandTotal.length,
     },
-    // {
-    //   title: "due Date",
-    //   dataIndex: "dueDate",
-    //   sorter: (a, b) => a.dueDate.length - b.dueDate.length,
-    // },
-    // {
-    //   title: "discount",
-    //   dataIndex: "table",
-    //   render: (text, record) => (
-    //     <span>
-    //     {record.table.map((item) => (
-    //       <div key={item._id}>
-    //        {item.discount}
-    //       </div>
-    //     ))}
-    //   </span>
-    //   ),
-    //   sorter: (a, b) => a.discount.length - b.discount.length,
-    // },
-    // {
-    //   title: "Balance",
-    //   dataIndex: "payments",
-    //   render: (payments) => {
-    //     const totalBalance = payments.reduce((acc, payment) => acc + payment.balance, 0);
-
-    //     // Check payment status and adjust the balance
-    //     const isPaid = payments.every((payment) => payment.paymentStatus === "Paid");
-
-    //     if (isPaid) {
-    //       return <span>0</span>; // If all payments are marked as "Paid", return 0 balance
-    //     } else {
-    //       const paymentAmount = payments[0]?.paymentAmount || 0;
-    //       const amount = payments[0]?.amount || 0;
-    //       const partialBalance = parseFloat(paymentAmount) - parseFloat(amount);
-    //       return <span>{partialBalance}</span>; // Calculate partial balance
-    //     }
-    //   },
-    //   sorter: (a, b) => {
-    //     const totalBalanceA = a.payments.reduce((acc, payment) => acc + payment.balance, 0);
-    //     const totalBalanceB = b.payments.reduce((acc, payment) => acc + payment.balance, 0);
-    //     return totalBalanceA - totalBalanceB;
-    //   },
-    // },
-
     {
       title: "Balance",
       dataIndex: "balance",
       sorter: (a, b) => a.balance.length - b.balance.length,
-      // render: (payments) => {
-      //   const lastPayment = payments[payments.length - 1];
-      //   const lastPaymentBalance = lastPayment ? lastPayment.balance : 0;
-
-      //   return <span>{lastPaymentBalance}</span>;
-      // },
-      // render: (payments, record) => {
-      //   if (payments.length > 0) {
-      //     const lastPayment = payments[payments.length - 1];
-      //     const lastPaymentBalance = lastPayment ? lastPayment.balance : 0;
-      //     return <span>{lastPaymentBalance}</span>;
-      //   } else {
-      //     return <span>{record.grandTotal}</span>; 
-      //   }
-      // },
-      // sorter: (a, b) => {
-      //   const lastBalanceA =
-      //     a.payments.length > 0 ? a.payments[a.payments.length - 1].balance : 0;
-      //   const lastBalanceB =
-      //     b.payments.length > 0 ? b.payments[b.payments.length - 1].balance : 0;
-
-      //   return lastBalanceA - lastBalanceB;
-      // },
     },
-
     {
       title: "Due Date",
       dataIndex: "dueDate",
@@ -466,120 +288,11 @@ const InvoiceList = () => {
         return <span>{formattedDate}</span>;
       },
     },
-    // {
-    //   title: "Status",
-    //   dataIndex: "payments",
-    //   render: (payments) => (
-    //     <>
-    //     {payments.length > 0 ? payments.map((payment) => (
-    //     <span className="badge bg-success-light">{payment?.paymentStatus ? payment?.paymentStatus : "Unpaid"}</span>
-    //     )) : <span className="badge bg-success-light">{"Unpaid"}</span>}
-    //     </>
-    //   ),
-    //   // sorter: (a, b) => a.paymentStatus.length - b.paymentStatus.length,
-    // },
-    // {
-    //   title: "Status",
-    //   dataIndex: "payments",
-    //   render: (payments) => {
-    //     const lastPayment =
-    //       payments.length > 0 ? payments[payments.length - 1] : null;
-
-    //     if (lastPayment) {
-    //       const lastPaymentBalance = lastPayment.balance;
-    //       return (
-    //         <span className={`badge bg-success-light`}>
-    //           {lastPaymentBalance === 0 ? "Paid" : "Partially Paid"}
-    //         </span>
-    //       );
-    //     } else {
-    //       return <span className={`badge bg-success-light`}>Unpaid</span>;
-    //     }
-    //   },
-    // },
-
     {
       title: "Status",
-      dataIndex: "payments",
-      render: (payments, record) => {
-        
-        if (payments.length > 0) {
-          
-          const lastPayment = payments[payments.length - 1];
-
-          
-          const invoiceDate = new Date(record.invoiceDate);
-          const dueDate = new Date(record.dueDate);
-
-          
-          if (lastPayment.balance === 0) {
-            return <span className={`badge bg-success-light`}>Paid</span>;
-          } else if (invoiceDate > dueDate) {
-            
-            const overdueDays = Math.floor(
-              (invoiceDate - dueDate) / (1000 * 60 * 60 * 24)
-            );
-            return (
-              <span className={`badge bg-danger-light`}>
-                Overdue by {overdueDays} days
-              </span>
-            );
-          } else {
-            
-            return (
-              <span className={`badge text-warning bg-light`}>Partially Paid</span>
-            );
-          }
-        } else {
-          return <span className={`badge bg-danger-light`}>Unpaid</span>;
-        }
-      },
+      dataIndex: "invoiceStatus",
+      sorter: (a, b) => a.invoiceStatus.length - b.invoiceStatus.length,
     },
-
-    // {
-    //   title: "Action",
-    //   dataIndex: "action",
-    //   render: (text, record) => (
-    //     <>
-    //       <div className="text-end">
-    //         <div className="dropdown dropdown-action">
-    //           <Link
-    //             to="#"
-    //             className="btn-action-icon"
-    //             data-bs-toggle="dropdown"
-    //             aria-expanded="false"
-    //           >
-    //             <i className="fas fa-ellipsis-v" />
-    //           </Link>
-    //           <div className="dropdown-menu dropdown-menu-end">
-    //             <Link className="dropdown-item" to="/edit-invoice">
-    //               <i className="far fa-edit me-2" />
-    //               Edit
-    //             </Link>
-    //             <Link
-    //               className="dropdown-item"
-    //               to={`/invoice-details/${record._id}`}
-    //             >
-    //               <i className="far fa-eye me-2" />
-    //               View
-    //             </Link>
-    //             <Link
-    //               className="dropdown-item"
-    //               to="#"
-    //               data-bs-toggle="modal"
-    //               data-bs-target="#delete_modal"
-    //             >
-    //               <i className="far fa-trash-alt me-2" />
-    //               Delete
-    //             </Link>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </>
-    //   ),
-    //   sorter: (a, b) => a.action.length - b.action.length,
-    // },
-
     {
       title: "Action",
       dataIndex: "action",
@@ -710,12 +423,6 @@ const InvoiceList = () => {
                   <div className="card-body invoiceList">
                     <h3>Deleted Invoices</h3>
                     <div className="table-responsive table-hover">
-                      {/* <Table
-                        pagination={false}
-                        columns={columns}
-                        dataSource={deletedInvoices}
-                        rowKey={(record) => record.id}
-                      /> */}
                       <Table
                         pagination={false}
                         columns={deletedInvoicesColumns}

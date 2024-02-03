@@ -20,6 +20,26 @@ router.post('/payment', async (req, res) => {
     if (invoiceid.balance < 0) {
       invoiceid.balance = 0;
     }
+
+    if (invoiceid.balance > 0) {
+         
+      const invoiceDate = new Date(invoiceid.invoiceDate);
+      const dueDate = new Date(invoiceid.dueDate);
+
+      if (invoiceid.balance === invoiceid.grandTotal) {
+        invoiceid.invoiceStatus = 'UNPAID';
+      } else if (invoiceDate > dueDate) {
+
+        const overdueDays = Math.floor(
+          (invoiceDate - dueDate) / (1000 * 60 * 60 * 24)
+        );
+        invoiceid.invoiceStatus = 'OVERDUE';
+      } else {
+        invoiceid.invoiceStatus = 'PARTIALLY PAID';
+      }
+    } else {
+      invoiceid.invoiceStatus = 'PAID';
+    }
     await invoiceid.save();
 
     const savedPayment = await payment.save();

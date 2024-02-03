@@ -76,6 +76,11 @@ const addInvoiceSchema = new mongoose.Schema({
   balance: {
     type: Number,
   },
+  invoiceStatus: {
+    type: String,
+    enum: ['PAID', 'UNPAID', 'PARTIALLY PAID', 'OVERDUE'],
+    default: 'UNPAID',
+  },
   table: [
     {
       productId: {
