@@ -475,7 +475,7 @@ const handleCountryChange = (e) => {
   console.log(e.target.value);
   let message = '';
 
-  if (value === '') {
+  if (e.target.value === '') {
     message = 'Field cannot be empty';
   }
 

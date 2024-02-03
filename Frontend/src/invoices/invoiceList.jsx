@@ -170,25 +170,27 @@ const InvoiceList = () => {
       sorter: (a, b) => a.grandTotal.length - b.grandTotal.length,
     },
     {
-      title: "Balance",
-      dataIndex: "payments",
-      render: (payments, record) => {
-        if (payments.length > 0) {
-          const lastPayment = payments[payments.length - 1];
-          const lastPaymentBalance = lastPayment ? lastPayment.balance : 0;
-          return <span>{lastPaymentBalance}</span>;
-        } else {
-          return <span>{record.grandTotal}</span>;
-        }
-      },
-      sorter: (a, b) => {
-        const lastBalanceA =
-          a.payments.length > 0 ? a.payments[a.payments.length - 1].balance : 0;
-        const lastBalanceB =
-          b.payments.length > 0 ? b.payments[b.payments.length - 1].balance : 0;
+      title: "Balance", 
+      dataIndex: "balance",
+      sorter: (a, b) => a.balance.length - b.balance.length,
+      // render: (payments, record) => {
+      //   if (payments.length > 0) {
+      //     const lastPayment = payments[payments.length - 1];
+      //     const lastPaymentBalance = lastPayment ? lastPayment.balance : 0;
+      //     return <span>{lastPaymentBalance}</span>;
+      //   } else {
+      //     return <span>{record.grandTotal}</span>;
+      //   }
+      // },
+      // sorter: (a, b) => {
+      //   const lastBalanceA =
+      //     a.payments.length > 0 ? a.payments[a.payments.length - 1].balance : 0;
+      //   const lastBalanceB =
+      //     b.payments.length > 0 ? b.payments[b.payments.length - 1].balance : 0;
 
-        return lastBalanceA - lastBalanceB;
-      },
+      //   return lastBalanceA - lastBalanceB;
+      // },
+
     },
 
     {
@@ -209,39 +211,39 @@ const InvoiceList = () => {
     },
     {
       title: "Status",
-      dataIndex: "payments",
-      render: (payments, record) => {
+      dataIndex: "balance",
+      // render: (payments, record) => {
         
-        if (payments.length > 0) {
+      //   if (payments.length > 0) {
          
-          const lastPayment = payments[payments.length - 1];
-          const invoiceDate = new Date(record.invoiceDate);
-          const dueDate = new Date(record.dueDate);
+      //     const lastPayment = payments[payments.length - 1];
+      //     const invoiceDate = new Date(record.invoiceDate);
+      //     const dueDate = new Date(record.dueDate);
 
           
-          if (lastPayment.balance === 0) {
-            return <span className={`badge bg-success-light`}>Paid</span>;
-          } else if (invoiceDate > dueDate) {
+      //     if (lastPayment.balance === 0) {
+      //       return <span className={`badge bg-success-light`}>Paid</span>;
+      //     } else if (invoiceDate > dueDate) {
             
-            const overdueDays = Math.floor(
-              (invoiceDate - dueDate) / (1000 * 60 * 60 * 24)
-            );
-            return (
-              <span className={`badge bg-danger-light`}>
-                Overdue by {overdueDays} days
-              </span>
-            );
-          } else {
+      //       const overdueDays = Math.floor(
+      //         (invoiceDate - dueDate) / (1000 * 60 * 60 * 24)
+      //       );
+      //       return (
+      //         <span className={`badge bg-danger-light`}>
+      //           Overdue by {overdueDays} days
+      //         </span>
+      //       );
+      //     } else {
             
-            return (
-              <span className={`badge bg-warning-light text-warning`}>Partially Paid</span>
-            );
-          }
-        } else {
+      //       return (
+      //         <span className={`badge bg-warning-light text-warning`}>Partially Paid</span>
+      //       );
+      //     }
+      //   } else {
          
-          return <span className={`badge bg-success-light`}>Unpaid</span>;
-        }
-      },
+      //     return <span className={`badge bg-success-light`}>Unpaid</span>;
+      //   }
+      // },
     },
 
     {
@@ -421,30 +423,31 @@ const InvoiceList = () => {
 
     {
       title: "Balance",
-      dataIndex: "payments",
+      dataIndex: "balance",
+      sorter: (a, b) => a.balance.length - b.balance.length,
       // render: (payments) => {
       //   const lastPayment = payments[payments.length - 1];
       //   const lastPaymentBalance = lastPayment ? lastPayment.balance : 0;
 
       //   return <span>{lastPaymentBalance}</span>;
       // },
-      render: (payments, record) => {
-        if (payments.length > 0) {
-          const lastPayment = payments[payments.length - 1];
-          const lastPaymentBalance = lastPayment ? lastPayment.balance : 0;
-          return <span>{lastPaymentBalance}</span>;
-        } else {
-          return <span>{record.grandTotal}</span>; 
-        }
-      },
-      sorter: (a, b) => {
-        const lastBalanceA =
-          a.payments.length > 0 ? a.payments[a.payments.length - 1].balance : 0;
-        const lastBalanceB =
-          b.payments.length > 0 ? b.payments[b.payments.length - 1].balance : 0;
+      // render: (payments, record) => {
+      //   if (payments.length > 0) {
+      //     const lastPayment = payments[payments.length - 1];
+      //     const lastPaymentBalance = lastPayment ? lastPayment.balance : 0;
+      //     return <span>{lastPaymentBalance}</span>;
+      //   } else {
+      //     return <span>{record.grandTotal}</span>; 
+      //   }
+      // },
+      // sorter: (a, b) => {
+      //   const lastBalanceA =
+      //     a.payments.length > 0 ? a.payments[a.payments.length - 1].balance : 0;
+      //   const lastBalanceB =
+      //     b.payments.length > 0 ? b.payments[b.payments.length - 1].balance : 0;
 
-        return lastBalanceA - lastBalanceB;
-      },
+      //   return lastBalanceA - lastBalanceB;
+      // },
     },
 
     {
