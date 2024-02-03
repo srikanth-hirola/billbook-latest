@@ -347,7 +347,7 @@ const InvoiceList = () => {
 
         <div className="page-wrapper">
           <div className="content container-fluid">
-            {/* <InvoiceHead setShow={setShow} show={show} /> */}
+            <InvoiceHead setShow={setShow} show={show} />
 
             <div className="card invoices-tabs-card">
               <div className="invoices-main-tabs">

@@ -179,7 +179,7 @@ const ProductList = () => {
                   style={{ width: 300, marginBottom: 0, padding: 6, border: "none", boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)" }}
                 />
                 <Space>
-                  <button onClick={handleReset} size="small" style={{ width: 90, padding: 7, background: "white", border: "none", boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)", borderRadius: 7, color: "grey", position: "relative", left: "-30px" }}>
+                  <button onClick={handleReset} size="small" style={{ width: 90, padding: 7, background: "#ed2020", border: "none", boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)", borderRadius: 7, color: "#fff", position: "relative", left: "-93px" }}>
                     Reset
                   </button>
                 </Space>
@@ -579,7 +579,7 @@ const ProductList = () => {
                                                 </div>
                                                 <div className="col-lg-12 col-md-6 col-sm-12">
                                                   <div className="form-group find-hsn-code">
-                                                    <label className="blue-text">Find HSN Code</label>
+                                                    <label className="blue-textt">Find HSN Code</label>
                                                   </div>
                                                 </div>
                                                 <div className="col-lg-6 col-md-6 col-sm-12">
@@ -596,7 +596,7 @@ const ProductList = () => {
                                                 </div>
                                                 <div className="col-lg-12 col-md-6 col-sm-12">
                                                   <div className="form-group find-hsn-code">
-                                                    <label className="blue-text">+ Alternative Unit</label>
+                                                    <label className="blue-textt">+ Alternative Unit</label>
                                                   </div>
                                                 </div>
                                                 <div className="col-lg-6 col-md-6 col-sm-12">
@@ -624,7 +624,7 @@ const ProductList = () => {
                                                 </div>
                                                 <div className="col-lg-6 col-md-6 col-sm-12">
                                                   <div className="form-group find-hsn-code">
-                                                    <label className="blue-text">Enable Low stock quantity warning</label>
+                                                    <label className="blue-textt">Enable Low stock quantity warning</label>
                                                   </div>
                                                 </div>
                                                 <div className="col-lg-12 col-md-12 col-sm-12">

@@ -321,7 +321,7 @@ const [validation2,setValidation2]=useState(
         style={{ width: 300, marginBottom:0,padding:6,border: "none",boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)" }}
       />
       <Space>
-        <button onClick={handleReset} size="small" style={{ width: 90,padding:7,background:"white",border: "none",boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)",borderRadius:7,color:"grey",position:"relative",left:"-65px"}}>
+        <button onClick={handleReset} size="small" style={{ width: 90,padding:7,background:"#ed2020",border: "none",boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)",borderRadius:7,color:"#fff",position:"relative",left:"-168px"}}>
           Reset
         </button>
       </Space>
@@ -338,30 +338,29 @@ const [validation2,setValidation2]=useState(
                         Filter{" "}
                       </Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link className="btn-filters" to="#">
                         <span>
-                          {/* <i className="fe fe-settings" /> */}
+                          <i className="fe fe-settings" />
                           <FeatherIcon icon="settings" />
                         </span>{" "}
                       </Link>
-                    </li>
-                    <li>
+                    </li> */}
+                    {/* <li>
                       <Link className="btn-filters" to="#">
                         <span>
-                          {/* <i className="fe fe-grid" /> */}
+                          <i className="fe fe-grid" />
                           <FeatherIcon icon="grid" />
                         </span>{" "}
                       </Link>
-                    </li>
-                    <li>
+                    </li> */}
+                    {/* <li>
                       <Link className="active btn-filters" to="#">
                         <span>
-                          {/* <i className="fe fe-list" /> */}
                           <FeatherIcon icon="list" />
-                        </span>{" "}
+                        </span>
                       </Link>
-                    </li>
+                    </li> */}
                     <li>
                       <Link
                         className="btn btn-primary"

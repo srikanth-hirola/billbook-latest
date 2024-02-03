@@ -160,7 +160,7 @@ const Inventory = () => {
         style={{ width: 300, marginBottom:0,padding:6, border: "none",boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)" }}
       />
       <Space>
-        <button onClick={handleReset} size="small" style={{ width: 90,padding:7,background:"white", border: "none",boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)",borderRadius:7,color:"grey",position:"relative",left:"-90px"}}>
+        <button onClick={handleReset} size="small" style={{ width: 90,padding:7,background:"#ed2020", border: "none",boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)",borderRadius:7,color:"#fff",position:"relative",left:"-161px"}}>
           Reset
         </button>
       </Space>

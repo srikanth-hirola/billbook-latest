@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import FeatherIcon from "feather-icons-react";
 import {
@@ -10,15 +10,30 @@ import {
   Rotate,
 } from "../_components/imagepath";
 import { Input, Pagination, Space, Table } from "antd";
+import axios from "axios";
 const InvoiceHead = ({show,setShow}) => {
   const [searchText, setSearchText] = useState("");
   const handleSearch = (value) => {
     setSearchText(value);
   };
-
+  const [datasource, setDatasource] = useState([]);
   const handleReset = () => {
     setSearchText("");
   };
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/addInvoice/invoices")
+      .then((response) => {
+        console.log("invoices", response.data);
+        setDatasource(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+
+   
+  }, []);
+  console.log("data",datasource)
   return (
     <>
       <div className="page-header">
@@ -31,7 +46,7 @@ const InvoiceHead = ({show,setShow}) => {
         style={{ width: 300, marginBottom:0,padding:6, border: "none",boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)" }}
       />
       <Space>
-        <button onClick={handleReset} size="small" style={{ width: 90,padding:7,background:"white", border: "none",boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)",borderRadius:7,color:"grey",position:"relative",left:"-50px"}}>
+        <button onClick={handleReset} size="small" style={{ width: 90,padding:7,background:"#ed2020", border: "none",boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)",borderRadius:7,color:"#fff",position:"relative",left:"-93px"}}>
           Reset
         </button>
       </Space>
@@ -110,7 +125,7 @@ const InvoiceHead = ({show,setShow}) => {
       </div>
       {/* /Search Filter */}
       {/* Inovices card */}
-      <div className="row">
+      {/* <div className="row ">
         <div className="col-xl-2 col-lg-4 col-sm-6 col-12 d-flex">
           <div className="card inovices-card w-100">
             <div className="card-body">
@@ -285,7 +300,7 @@ const InvoiceHead = ({show,setShow}) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* /Inovices card */}
       {/* All Invoice */}
     </>
