@@ -481,7 +481,7 @@ const EditProduct = () => {
                                                                                                 </div>
                                                                                                 <div className="col-lg-12 col-md-6 col-sm-12">
                                                                                                     <div className="form-group find-hsn-code">
-                                                                                                        <label className="blue-text">Find HSN Code</label>
+                                                                                                        <label className="blue-textt">Find HSN Code</label>
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <div className="col-lg-6 col-md-6 col-sm-12">
@@ -498,7 +498,7 @@ const EditProduct = () => {
                                                                                                 </div>
                                                                                                 <div className="col-lg-12 col-md-6 col-sm-12">
                                                                                                     <div className="form-group find-hsn-code">
-                                                                                                        <label className="blue-text">+ Alternative Unit</label>
+                                                                                                        <label className="blue-textt">+ Alternative Unit</label>
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <div className="col-lg-6 col-md-6 col-sm-12">
@@ -526,7 +526,7 @@ const EditProduct = () => {
                                                                                                 </div>
                                                                                                 <div className="col-lg-6 col-md-6 col-sm-12">
                                                                                                     <div className="form-group find-hsn-code">
-                                                                                                        <label className="blue-text">Enable Low stock quantity warning</label>
+                                                                                                        <label className="blue-textt">Enable Low stock quantity warning</label>
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <div className="col-lg-12 col-md-12 col-sm-12">

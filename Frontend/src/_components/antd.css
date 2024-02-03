@@ -105,7 +105,7 @@ td.ant-table-column-sort {
 }
 .ant-pagination-item-active {
     font-weight: 500;
-    background: #7539FF;
+    background: #6885ed;
     border: none !important;
     color: rgb(255, 255, 255) !important;
     z-index: 1 !important;
@@ -282,7 +282,7 @@ td.ant-table-column-sort {
 }
 .ant-pagination-item-active {
     font-weight: 500;
-    background: #7539FF!important;
+    background: #6885ed!important;
     border: none !important;
     color: rgb(255, 255, 255) !important;
     z-index: 1 !important;
@@ -484,7 +484,7 @@ li.ant-pagination-options {
     text-align: initial;
 }
 .ant-table.ant-table td h2 a:hover{
-    color: #7539FF;
+    color: #6885ed;
 }
 
 .dropdown.dropdown-action{
