@@ -161,6 +161,62 @@ const Invoicedetails = () => {
   console.log("invoiceid", invoiceid)
 
 
+  // const handleSavePayment = async () => {
+  //   const paymentData = {
+  //     invoiceId: id,
+  //     customerid: customerID,
+  //     paymentAmount: paymentAmount,
+  //     paymentDate: paymentDate,
+  //     paymentType: paymentMethod,
+  //     notes: notes,
+  //     paymentStatus: "Paid",
+  //     amount: amount,
+  //   };
+  
+  //   try {
+  //     const initialResponse = await fetch(
+  //       "http://localhost:8000/api/paymentDetails/payment",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(paymentData),
+  //       }
+  //     );
+
+  //     const paymentStatus = balance === 0 ? "Paid" : "Partially Paid";
+
+  //     const updatedPaymentData = {
+  //       ...paymentData,
+  //       paymentStatus: paymentStatus,
+  //     };
+
+  //     try {
+  //       const updatedResponse = await fetch(
+  //         "http://localhost:8000/api/paymentDetails/payment",
+  //         {
+  //           method: "POST",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //           },
+  //           body: JSON.stringify(updatedPaymentData),
+  //         }
+  //       );
+
+  //       if (updatedResponse.ok) {
+  //         console.log("Payment successfully saved:", updatedPaymentData);
+  //       } else {
+  //         console.error("Failed to save payment:", updatedResponse.statusText);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error saving payment:", error);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error saving payment:", error);
+  //   }
+  // };
+
   const handleSavePayment = async () => {
     const paymentData = {
       invoiceId: id,
@@ -185,44 +241,18 @@ const Invoicedetails = () => {
         }
       );
 
-      const paymentStatus = balance === 0 ? "Paid" : "Partially Paid";
-
-      const updatedPaymentData = {
-        ...paymentData,
-        paymentStatus: paymentStatus,
-      };
-
-      try {
-        const updatedResponse = await fetch(
-          "http://localhost:8000/api/paymentDetails/payment",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(updatedPaymentData),
+      if (initialResponse.ok) {
+            console.log("Payment successfully saved:", paymentData);
+          } else {
+            console.error("Failed to save payment:", paymentData.statusText);
           }
-        );
-
-        if (updatedResponse.ok) {
-          console.log("Payment successfully saved:", updatedPaymentData);
-        } else {
-          console.error("Failed to save payment:", updatedResponse.statusText);
-        }
-      } catch (error) {
-        console.error("Error saving payment:", error);
-      }
+  
+      const paymentStatus = balance === 0 ? "Paid" : "Partially Paid";
     } catch (error) {
       console.error("Error saving payment:", error);
     }
   };
   
-  // useEffect(() => {
-  //   setIsSaveDisabled(false); 
-  // }, [amount]); 
-  
-
-
   const handleAmountChange = (e) => {
     const enteredAmount = e.target.value;
     setAmount(enteredAmount);
