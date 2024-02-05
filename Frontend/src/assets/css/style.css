@@ -3103,7 +3103,7 @@ span.select2-container.select2-container--default.select2-container--open {
   font-size: 14px;
   line-height: 18px;
   position: absolute;
-  top: 8px;
+  top: 14px !important;
   right: 10px;
   transform: translate(0, 0);
   -webkit-transform: translate(0, 0);
@@ -18439,3 +18439,10 @@ blue color //#6885ed
 green color //  #1edd6a
 red color // #ed2020
 yellow // #f9dc0b */
+
+.sidebar .sidebar-menu > ul > li > a {
+  padding: 12px 25px !important;
+}
+.sidebar .sidebar-menu > ul > li.active a span {
+  top: 12px !important;
+}

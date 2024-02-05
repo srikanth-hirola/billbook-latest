@@ -134,7 +134,7 @@ const Category = () => {
   };
   const columns = [
     {
-      title: "#",
+      title: "No.",
       dataIndex: "Id",
       sorter: (a, b) => a.Id.length - b.Id.length,
     },
@@ -227,13 +227,7 @@ const Category = () => {
                     onClick={handleReset}
                     size="small"
                     style={{
-                      width: 90,
-                      padding: 7,
-                      background: "white",
-                      border: "none",
-                      boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)",
-                      borderRadius: 7,
-                      color: "grey",
+                      width: 90, padding: 7, background: "#ed2020", border: "none", boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)", borderRadius: 7, color: "#fff", 
                       position: "relative",
                       left: "-30px",
                     }}

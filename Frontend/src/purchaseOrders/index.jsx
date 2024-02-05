@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "../layouts/Header";
 import Sidebar from "../layouts/Sidebar";
 import "../_components/antd.css";
-import { Pagination, Table } from "antd";
+import { Input, Pagination, Space, Table } from "antd";
 import Data from "../assets/jsons/purchase";
 import FeatherIcon from "feather-icons-react";
 import {
@@ -23,10 +23,17 @@ const PurchaseOrders = () => {
 
   const datasource = Data?.Data;
   console.log(datasource);
+  const [searchText, setSearchText] = useState("");
+  const handleSearch = (value) => {
+    setSearchText(value);
+  };
 
+  const handleReset = () => {
+    setSearchText("");
+  };
   const columns = [
     {
-      title: "#",
+      title: "No.",
       dataIndex: "id",
       sorter: (a, b) => a.id.length - b.id.length,
     },
@@ -155,6 +162,17 @@ const PurchaseOrders = () => {
             <div className="page-header">
               <div className="content-page-header">
                 <h5>Purchase Orders</h5>
+                <Input className="searh-input"
+        placeholder="Search by name or phone number"
+        value={searchText}
+        onChange={(e) => handleSearch(e.target.value)}
+        style={{ width: 300, marginBottom:0,padding:6, border: "none",boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)" }}
+      />
+      <Space>
+        <button onClick={handleReset} size="small" style={{ width: 90,padding:7,background:"#ed2020", border: "none",boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)",borderRadius:7,color:"#fff",position:"relative",left:"-73px"}}>
+          Reset
+        </button>
+      </Space>
                 <div className="list-btn">
                   <ul className="filter-list">
                     <li>
@@ -233,9 +251,10 @@ const PurchaseOrders = () => {
                 <div className="card-table">
                   <div className="card-body purchase">
                     <div className="table-responsive table-hover">
-                      <Table
+                    <Table
                         pagination={{
-                          total: datasource.length,
+                          total: datasource ? datasource.length : 0,
+
                           showTotal: (total, range) =>
                             `Showing ${range[0]} to ${range[1]} of ${total} entries`,
                           showSizeChanger: true,
@@ -243,7 +262,13 @@ const PurchaseOrders = () => {
                           itemRender: itemRender,
                         }}
                         columns={columns}
-                        dataSource={datasource}
+                        dataSource={datasource.filter((record) =>
+                          record?.Name?.toLowerCase().includes(searchText.toLowerCase()) ||
+                          record?.Phone?.includes(searchText) ||
+                          record?.Purchase?.includes(searchText) ||
+                          record?.Status?.toLowerCase().includes(searchText.toLowerCase()) 
+                        )}
+                        rowKey={(record) => record.id}
                       />
                     </div>
                   </div>
