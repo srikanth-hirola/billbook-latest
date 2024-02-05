@@ -117,92 +117,18 @@ const Sidebar = (props) => {
                   }`}
                 >
                   <Link
-                    to="#"
+                    to="/index"
                     className={isSideMenu == "index" ? "subdrop" : ""}
                     onClick={() =>
                       toggleSidebar(isSideMenu == "index" ? "" : "index")
                     }
                   >
                     <FeatherIcon icon="home" /> <span>Dashboard</span>{" "}
-                    <span className="menu-arrow"></span>
+                    
                   </Link>
-                  {isSideMenu == "index" ? (
-                    <ul
-                      style={{
-                        display: isSideMenu == "index" ? "block" : "none",
-                      }}
-                    >
-                      <li>
-                        <Link
-                          to="/index"
-                          className={`${"/index" === pathName ? "active" : ""}`}
-                        >
-                          Admin Dashboard
-                        </Link>
-                      </li>
-                    </ul>
-                  ) : (
-                    ""
-                  )}
+                  
                 </li>
-                <li
-                  className={`${
-                    "/chat" === pathName ||
-                    "/calendar" === pathName ||
-                    "/inbox" === pathName
-                      ? "active submenu"
-                      : "submenu"
-                  }`}
-                >
-                  <Link
-                    to="#"
-                    className={isSideMenu == "application" ? "subdrop" : ""}
-                    onClick={() =>
-                      toggleSidebar(
-                        isSideMenu == "application" ? "" : "application"
-                      )
-                    }
-                  >
-                    <FeatherIcon icon="grid" /> <span> Application</span>{" "}
-                    <span className="menu-arrow"></span>
-                  </Link>
-                  {isSideMenu == "application" ? (
-                    <ul
-                      style={{
-                        display: isSideMenu == "application" ? "block" : "none",
-                      }}
-                    >
-                      <li>
-                        <Link
-                          to="/chat"
-                          className={`${"/chat" === pathName ? "active" : ""}`}
-                        >
-                          Chat
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/calendar"
-                          className={`${
-                            "/calendar" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Calendar
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/inbox"
-                          className={`${"/inbox" === pathName ? "active" : ""}`}
-                        >
-                          Email
-                        </Link>
-                      </li>
-                    </ul>
-                  ) : (
-                    ""
-                  )}
-                </li>
+               
               </ul>
               {/* /Main */}
               {/* Customers */}
@@ -243,7 +169,7 @@ const Sidebar = (props) => {
               {/* Inventory */}
               <ul>
                 <li className="menu-title">
-                  <span>Inventory</span>
+                  <span>Products</span>
                 </li>
                 <li
                   className={`${
@@ -490,7 +416,7 @@ const Sidebar = (props) => {
                   }`}
                 >
                   <Link
-                    to="#"
+                    to="/invoice-list"
                     className={isSideMenu === "invoice-list" ? "subdrop" : ""}
                     onClick={() =>
                       toggleSidebar(
@@ -498,7 +424,7 @@ const Sidebar = (props) => {
                       )
                     }
                   >
-                    <FeatherIcon icon="file" /> <span> Invoice</span>
+                    <FeatherIcon icon="file" /> <span> Sales</span>
                     <span className="menu-arrow"></span>
                   </Link>
                   {isSideMenu === "invoice-list" ? (
@@ -515,7 +441,7 @@ const Sidebar = (props) => {
                             "/invoice-list" === pathName ? "active" : ""
                           }`}
                         >
-                          Invoice List
+                          Sales
                         </Link>
                       </li>
                       <li>
@@ -536,7 +462,7 @@ const Sidebar = (props) => {
                             "/Payment" === pathName ? "active" : ""
                           }`}
                         >
-                          Payment
+                          Payment In
                         </Link>
                       </li>
                       {/* End of Payment Component Link */}
@@ -750,466 +676,7 @@ const Sidebar = (props) => {
                 </li>
               </ul>
               {/* /User Management */}
-              {/* Membership) */}
-              <ul>
-                <li className="menu-title">
-                  <span>Membership</span>
-                </li>
-                <li
-                  className={`${
-                    "/membership-plans" === pathName ||
-                    "/membership-addons" === pathName ||
-                    "/add-membership" === pathName ||
-                    "/transactions" === pathName ||
-                    "/subscribers" === pathName
-                      ? "active submenu"
-                      : "submenu"
-                  }`}
-                >
-                  <Link
-                    to="#"
-                    className={
-                      isSideMenu == "membership-plans" ? "subdrop" : ""
-                    }
-                    onClick={() =>
-                      toggleSidebar(
-                        isSideMenu == "membership-plans"
-                          ? ""
-                          : "membership-plans"
-                      )
-                    }
-                  >
-                    <FeatherIcon icon="book" /> <span>Membership </span>
-                    <span className="menu-arrow"></span>
-                  </Link>
-                  {isSideMenu == "membership-plans" ? (
-                    <ul
-                      style={{
-                        display:
-                          isSideMenu == "membership-plans" ? "block" : "none",
-                      }}
-                    >
-                      <li>
-                        <Link
-                          to="/membership-plans"
-                          className={`${
-                            "/membership-plans" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Membership Plan
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/membership-addons"
-                          className={`${
-                            "/membership-addons" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Membership Addons
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/subscribers"
-                          className={`${
-                            "/subscribers" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Subscribers
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/transactions"
-                          className={`${
-                            "/transactions" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Transactions
-                        </Link>
-                      </li>
-                    </ul>
-                  ) : (
-                    ""
-                  )}
-                </li>
-              </ul>
-              {/* /Membership) */}
-              {/* Content (CMS) */}
-              <ul>
-                <li className="menu-title">
-                  <span>Content (CMS)</span>
-                </li>
-                <li
-                  className={`${
-                    "/add-page" === pathName || "/pages" === pathName
-                      ? "active submenu"
-                      : "submenu"
-                  }`}
-                >
-                  <Link
-                    to="#"
-                    className={isSideMenu == "add-page" ? "subdrop" : ""}
-                    onClick={() =>
-                      toggleSidebar(isSideMenu == "add-page" ? "" : "add-page")
-                    }
-                  >
-                    <FeatherIcon icon="folder" /> <span>Pages </span>
-                    <span className="menu-arrow"></span>
-                  </Link>
-                  {isSideMenu == "add-page" ? (
-                    <ul
-                      style={{
-                        display: isSideMenu == "add-page" ? "block" : "none",
-                      }}
-                    >
-                      <li>
-                        <Link
-                          to="/add-page"
-                          className={`${
-                            "/add-page" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Add Page
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/pages"
-                          className={`${"/pages" === pathName ? "active" : ""}`}
-                        >
-                          Page
-                        </Link>
-                      </li>
-                    </ul>
-                  ) : (
-                    ""
-                  )}
-                </li>
-                <li
-                  className={`${
-                    "/all-blogs" === pathName ||
-                    "/inactive-blog" === pathName ||
-                    "/add-blog" === pathName ||
-                    "/categories" === pathName ||
-                    "/add-categories" === pathName ||
-                    "/blog-comments" === pathName
-                      ? "active submenu"
-                      : "submenu"
-                  }`}
-                >
-                  <Link
-                    to="#"
-                    className={isSideMenu == "all-blogs" ? "subdrop" : ""}
-                    onClick={() =>
-                      toggleSidebar(
-                        isSideMenu == "all-blogs" ? "" : "all-blogs"
-                      )
-                    }
-                  >
-                    <FeatherIcon icon="book" /> <span>Blog </span>
-                    <span className="menu-arrow"></span>
-                  </Link>
-                  {isSideMenu == "all-blogs" ? (
-                    <ul
-                      style={{
-                        display: isSideMenu == "all-blogs" ? "block" : "none",
-                      }}
-                    >
-                      <li>
-                        <Link
-                          to="/all-blogs"
-                          className={`${
-                            "/all-blogs" === pathName ? "active" : ""
-                          }`}
-                        >
-                          All Blogs
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/add-blog"
-                          className={`${
-                            "/add-blog" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Add Blog
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/categories"
-                          className={`${
-                            "/categories" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Categories
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/blog-comments"
-                          className={`${
-                            "/blog-comments" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Blog Comments
-                        </Link>
-                      </li>
-                    </ul>
-                  ) : (
-                    ""
-                  )}
-                </li>
-                <li
-                  className={`${
-                    "/countries" === pathName ||
-                    "/states" === pathName ||
-                    "/cities" === pathName
-                      ? "active submenu"
-                      : "submenu"
-                  }`}
-                >
-                  <Link
-                    to="#"
-                    className={isSideMenu == "countries" ? "subdrop" : ""}
-                    onClick={() =>
-                      toggleSidebar(
-                        isSideMenu == "countries" ? "" : "countries"
-                      )
-                    }
-                  >
-                    <FeatherIcon icon="map-pin" /> <span>Location</span>
-                    <span className="menu-arrow"></span>
-                  </Link>
-                  {isSideMenu == "countries" ? (
-                    <ul
-                      style={{
-                        display: isSideMenu == "countries" ? "block" : "none",
-                      }}
-                    >
-                      <li>
-                        <Link
-                          to="/countries"
-                          className={`${
-                            "/countries" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Countries
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/states"
-                          className={`${
-                            "/states" === pathName ? "active" : ""
-                          }`}
-                        >
-                          States
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/cities"
-                          className={`${
-                            "/cities" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Cities
-                        </Link>
-                      </li>
-                    </ul>
-                  ) : (
-                    ""
-                  )}
-                </li>
-                <li
-                  className={`${
-                    "/testimonials" === pathName ||
-                    "/add-testimonials" === pathName ||
-                    "/edit-testimonials" === pathName
-                      ? "active"
-                      : ""
-                  }`}
-                >
-                  <Link to="/testimonials">
-                    <FeatherIcon icon="message-square" />{" "}
-                    <span>Testimonials</span>
-                  </Link>
-                </li>
-                <li className={`${"/faq" === pathName ? "active" : ""}`}>
-                  <Link to="/faq">
-                    <FeatherIcon icon="alert-circle" /> <span>FAQ</span>
-                  </Link>
-                </li>
-              </ul>
-              {/* /Content (CMS) */}
-              {/* Support */}
-              <ul>
-                <li className="menu-title">
-                  <span>Support</span>
-                </li>
-                <li
-                  className={`${
-                    "/contact-messages" === pathName ? "active" : ""
-                  }`}
-                >
-                  <Link to="/contact-messages">
-                    <FeatherIcon icon="printer" /> <span>Contact Messages</span>
-                  </Link>
-                </li>
-                <li
-                  className={`${
-                    "/tickets" === pathName ||
-                    "/tickets-list-paid" === pathName ||
-                    "/tickets-list" === pathName ||
-                    "/tickets-pending" === pathName ||
-                    "/tickets-overdue" === pathName ||
-                    "/tickets-recurring" === pathName ||
-                    "/tickets-draft" === pathName ||
-                    "/tickets-cancelled" === pathName ||
-                    "/tickets-list-overdue" === pathName ||
-                    "/tickets-list-recurring" === pathName ||
-                    "/tickets-list-cancelled" === pathName ||
-                    "/tickets-kanban" === pathName ||
-                    "/tickets-overview" === pathName ||
-                    "/tickets-list-draft" === pathName
-                      ? "active submenu"
-                      : "submenu"
-                  }`}
-                >
-                  <Link
-                    to="#"
-                    className={isSideMenu == "tickets" ? "subdrop" : ""}
-                    onClick={() =>
-                      toggleSidebar(isSideMenu == "tickets" ? "" : "tickets")
-                    }
-                  >
-                    <FeatherIcon icon="save" /> <span>Tickets</span>
-                    <span className="menu-arrow"></span>
-                  </Link>
-                  {isSideMenu == "tickets" ? (
-                    <ul
-                      style={{
-                        display: isSideMenu == "tickets" ? "block" : "none",
-                      }}
-                    >
-                      <li>
-                        <Link
-                          to="/tickets"
-                          className={`${
-                            "/tickets" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Tickets
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/tickets-list"
-                          className={`${
-                            "/tickets-list" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Tickets List
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/tickets-kanban"
-                          className={`${
-                            "/tickets-kanban" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Tickets Kanban
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/tickets-overview"
-                          className={`${
-                            "/tickets-overview" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Tickets Overview
-                        </Link>
-                      </li>
-                    </ul>
-                  ) : (
-                    ""
-                  )}
-                </li>
-              </ul>
-              {/* /Support */}
-              {/* Authentication */}
-              <ul>
-                <li
-                  className={`${
-                    "/login" === pathName ? "active submenu" : "submenu"
-                  }`}
-                >
-                  <Link
-                    to="#"
-                    className={isSideMenu == "login" ? "subdrop" : ""}
-                    onClick={() =>
-                      toggleSidebar(isSideMenu == "login" ? "" : "login")
-                    }
-                  >
-                    <FeatherIcon icon="lock" /> <span>Authentication</span>
-                    <span className="menu-arrow"></span>
-                  </Link>
-                  {isSideMenu == "login" ? (
-                    <ul
-                      style={{
-                        display: isSideMenu == "login" ? "block" : "none",
-                      }}
-                    >
-                      <li>
-                        <Link
-                          to="/login"
-                          className={`${"/login" === pathName ? "active" : ""}`}
-                        >
-                          Login
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/register"
-                          className={`${
-                            "/register" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Register
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/forgot-password"
-                          className={`${
-                            "/forgot-password" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Forget Password
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/lock-screen"
-                          className={`${
-                            "/lock-screen" === pathName ? "active" : ""
-                          }`}
-                        >
-                          Lock Screen
-                        </Link>
-                      </li>
-                    </ul>
-                  ) : (
-                    ""
-                  )}
-                </li>
-              </ul>
-              {/* /Authentication */}
+
             
               {/* Settings */}
               <ul>
@@ -1221,11 +688,7 @@ const Sidebar = (props) => {
                     <FeatherIcon icon="settings" /> <span>Settings</span>
                   </Link>
                 </li>
-                <li className={`${"/login" === pathName ? "active" : ""}`}>
-                  <Link to="/login">
-                    <FeatherIcon icon="power" /> <span>Logout</span>
-                  </Link>
-                </li>
+               
               </ul>
               {/* /Settings */}
             </div>

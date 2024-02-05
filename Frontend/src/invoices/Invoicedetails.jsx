@@ -4,7 +4,7 @@ import Sidebar from "../layouts/Sidebar";
 import FeatherIcon from "feather-icons-react";
 import { DetailsLogo, signature } from "../_components/imagepath";
 import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -12,7 +12,9 @@ import { MdOutlineDateRange } from "react-icons/md";
 import { Dropdown, Button } from "react-bootstrap";
 import { FaWhatsapp, FaEnvelope, FaShare } from "react-icons/fa";
 import html2pdf from "html2pdf.js";
+import { toast } from "react-toastify";
 const Invoicedetails = () => {
+  const history = useHistory()
   const { id } = useParams();
   console.log(id, "id");
   const [menu, setMenu] = useState(false);
@@ -50,7 +52,26 @@ const Invoicedetails = () => {
 
   //   console.log('Share via WhatsApp');
   // };
+const handleDownloadPDF = () => {
+  const content = invoiceContentRef.current;
 
+  if (content) {
+    const pdfOptions = {
+      margin: 5,
+      filename: `invoice_${id}.pdf`,
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: {
+        unit: "mm",
+        format: "a4",
+        orientation: "portrait",
+        putOnlyUsedFonts: true,
+      },
+    };
+
+    html2pdf().from(content).set(pdfOptions).save();
+  }
+};
   const handleWhatsAppShare = () => {
     const phoneNumber = "7993852051";
     const invoiceDownloadLink = `http://localhost:8000/invoices/invoice_${id}.pdf`; // Replace with the actual local URL to your invoice file
@@ -240,7 +261,10 @@ const Invoicedetails = () => {
           body: JSON.stringify(paymentData),
         }
       );
-
+      toast.success("Invoice Added Succesfully", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      history.push("/invoice-list");
       if (initialResponse.ok) {
             console.log("Payment successfully saved:", paymentData);
           } else {
@@ -266,28 +290,28 @@ const Invoicedetails = () => {
   const [invoiceDownloadLink, setInvoiceDownloadLink] = useState("");
 
   const invoiceContentRef = useRef(null);
-  const handleDownloadPDF = () => {
-    const content = invoiceContentRef.current;
+  // const handleDownloadPDF = () => {
+  //   const content = invoiceContentRef.current;
 
-    console.log(content, "hhhhhhhhhhhhhhhhhh");
+  //   console.log(content, "hhhhhhhhhhhhhhhhhh");
 
-    if (content) {
-      const pdfOptions = {
-        margin: 5,
-        filename: `invoice_${id}.pdf`,
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: {
-          unit: "mm",
-          format: "a4",
-          orientation: "portrait",
-          putOnlyUsedFonts: true,
-        },
-      };
+  //   if (content) {
+  //     const pdfOptions = {
+  //       margin: 5,
+  //       filename: `invoice_${id}.pdf`,
+  //       image: { type: "jpeg", quality: 0.98 },
+  //       html2canvas: { scale: 2 },
+  //       jsPDF: {
+  //         unit: "mm",
+  //         format: "a4",
+  //         orientation: "portrait",
+  //         putOnlyUsedFonts: true,
+  //       },
+  //     };
 
-      html2pdf().from(content).set(pdfOptions).save();
-    }
-  };
+  //     html2pdf().from(content).set(pdfOptions).save();
+  //   }
+  // };
 
   console.log(
     "Signature Image URL:",
@@ -351,7 +375,7 @@ const Invoicedetails = () => {
                       </a>
                     </li>
                     <li>
-                      <Link
+                      {/* <Link
                         to="#"
                         className="download-link btn btn-primary"
                         download=""
@@ -359,7 +383,16 @@ const Invoicedetails = () => {
                       >
                         <i className="fa fa-download me-2" aria-hidden="true" />
                         <span>Download</span>
-                      </Link>
+                      </Link> */}
+                      <Link
+  to="#"
+  className="download-link btn btn-primary"
+  download=""
+  onClick={handleDownloadPDF}
+>
+  <i className="fa fa-download me-2" aria-hidden="true" />
+  <span>Download</span>
+</Link>
                     </li>
 
                     <li>
@@ -490,14 +523,14 @@ const Invoicedetails = () => {
                   </div>
 
                   <div className="modal-footer">
-                    <button
+                    {/* <button
                       type="button"
                       className="btn btn-secondary"
                       data-bs-dismiss="modal"
                     >
                       Close
                       <span aria-hidden="true">&times;</span>
-                    </button>
+                    </button> */}
                     <button
                       type="button"
                       className={`btn btn-primary`}

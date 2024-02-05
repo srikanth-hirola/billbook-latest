@@ -13,6 +13,11 @@ import { Input, Pagination, Space, Table } from "antd";
 import axios from "axios";
 const InvoiceHead = ({show,setShow}) => {
   const [searchText, setSearchText] = useState("");
+  const [totalGrandTotal, setTotalGrandTotal] = useState(0);
+  const [paidAmount, setPaidAmount] = useState({ totalAmountFromPayments: 0 });
+  const [totalpaidinvoice, setTotalPaidInvoice] = useState([]);
+  const [totalOutstandingAmount, setTotalOutstandingAmount] = useState({ totalOutstandingAmount: 0 });
+  // const [totaloutstandingamount, setTotalOutstandingAmountList] = useState([]);
   const handleSearch = (value) => {
     setSearchText(value);
   };
@@ -20,19 +25,52 @@ const InvoiceHead = ({show,setShow}) => {
   const handleReset = () => {
     setSearchText("");
   };
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:8000/api/addInvoice/invoices")
+  //     .then((response) => {
+  //       console.log("invoices", response.data);
+  //       setDatasource(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //     });
+
+   
+  // }, []);
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/addInvoice/invoices")
       .then((response) => {
         console.log("invoices", response.data);
         setDatasource(response.data);
+  
+        // Calculate totalGrandTotal
+        let totalGrandTotalValue = response.data.reduce((acc, invoice) => {
+          return acc + (invoice.grandTotal || 0);
+        }, 0);
+        setTotalGrandTotal(totalGrandTotalValue);
+  
+        // Calculate totalPaidAmount
+        let totalPaidAmountValue = response.data.reduce((acc, invoice) => {
+          return acc + (invoice.paidAmount || 0);
+        }, 0);
+        setPaidAmount(totalPaidAmountValue);
+  
+        // Calculate totalOutstandingAmount
+        let totalOutstandingAmountValue = response.data.reduce((acc, invoice) => {
+          return acc + (invoice.outstandingAmount || 0);
+        }, 0);
+        setTotalOutstandingAmount(totalOutstandingAmountValue);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-
-   
   }, []);
+  
+console.log("paid",paidAmount)
+console.log("unpaid",totalOutstandingAmount)
+  
   console.log("data",datasource)
   return (
     <>
@@ -125,7 +163,7 @@ const InvoiceHead = ({show,setShow}) => {
       </div>
       {/* /Search Filter */}
       {/* Inovices card */}
-      {/* <div className="row ">
+      <div className="row ">
         <div className="col-xl-2 col-lg-4 col-sm-6 col-12 d-flex">
           <div className="card inovices-card w-100">
             <div className="card-body">
@@ -201,7 +239,7 @@ const InvoiceHead = ({show,setShow}) => {
               <div className="d-flex justify-content-between align-items-center">
                 <p className="inovices-all">
                   No of Invoice{" "}
-                  <span className="rounded-circle bg-light-gray">{totaloutstandingamount.length}</span>
+                  <span className="rounded-circle bg-light-gray">{totalOutstandingAmount.length}</span>
                 </p>
                 <p className="inovice-trending text-success-light">
                   04{" "}
@@ -300,7 +338,7 @@ const InvoiceHead = ({show,setShow}) => {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
       {/* /Inovices card */}
       {/* All Invoice */}
     </>

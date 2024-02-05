@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useCallback,uSe } from "react";
+import { Link ,useHistory} from "react-router-dom";
 import DatePicker from "react-datepicker";
 import Header from "../layouts/Header";
 import Sidebar from "../layouts/Sidebar";
@@ -14,6 +14,8 @@ import { Modal, Select, Input, Button } from "antd";
 import CustomerAddInvoiceModal from "./CustomerAddInvoiceModal";
 
 const AddInvoice = () => {
+  const history = useHistory();
+
   const [isGstEnabled, setIsGstEnabled] = useState(false);
   const [isCustomerDetailsModalOpen, setisCustomerDetailsModalOpen] =
     useState(false);
@@ -543,13 +545,16 @@ const AddInvoice = () => {
 
       console.log("Data submitted successfully:", response.data);
 
-      Swal.fire({
-        icon: "success",
-        title: "Invoice Submitted Successfully",
-        showConfirmButton: false,
-        timer: 1500,
+      // Swal.fire({
+      //   icon: "success",
+      //   title: "Invoice Submitted Successfully",
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      // });
+      toast.success("Invoice Added Succesfully", {
+        position: toast.POSITION.TOP_RIGHT,
       });
-
+      history.push("/invoice-list");
       setFormData({
         invoiceNumber: "",
         customerName: "",
@@ -1161,12 +1166,12 @@ const AddInvoice = () => {
                                   open={isCustomerDetailsModalOpen}
                                   onCancel={closeCustomerDetailsModal}
                                   footer={[
-                                    <Button
-                                      key="close"
-                                      onClick={closeCustomerDetailsModal}
-                                    >
-                                      Close
-                                    </Button>,
+                                    // <Button
+                                    //   key="close"
+                                    //   onClick={closeCustomerDetailsModal}
+                                    // >
+                                    //   Close
+                                    // </Button>,
                                   ]}
                                 >
                                   <CustomerAddInvoiceModal
@@ -1461,7 +1466,7 @@ const AddInvoice = () => {
                                 </Link>
                               </div>
                               {selectedAccount && (
-                                <div>
+                                <div className="add-bank-details" >
                                   <h6>Account Details</h6>
                                   {/* <p>
                                     Opening Balance:{" "}
