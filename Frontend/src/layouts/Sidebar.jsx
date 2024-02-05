@@ -255,6 +255,11 @@ const Sidebar = (props) => {
                       "/invoice-overdue" === pathName ||
                       "/invoice-template" === pathName ||
                       "/invoice-draft" === pathName ||
+                      "/invoices" === pathName ||
+                      "/recurring-invoices" === pathName ||
+                      "/credit-notes" === pathName ||
+                      "/quotations" === pathName ||
+                      "/delivery-challans" === pathName ||
                       "/invoice-recurring" === pathName ||
                       "/invoice-cancelled" === pathName ||
                       "/invoice-grid" === pathName ||
@@ -313,13 +318,18 @@ const Sidebar = (props) => {
                         </Link>
                       </li>
                       <li>
-                      <Link to="/recurring-invoices">
+                      <Link to="/recurring-invoices"
+                      className={`${"/recurring-invoices" === pathName ? "active" : ""
+                            }`}>
                     {/* <FeatherIcon icon="clipboard" />{" "} */}
                     Recurring Invoice
                   </Link>
                       </li>
                       <li>
-                        <Link to="/credit-notes">
+                        <Link to="/credit-notes"
+                         className={`${"/credit-notes" === pathName ? "active" : ""
+                        }`}>
+                       
                           {/* <FeatherIcon icon="edit" /> */}
                           Credit Notes
                         </Link>
@@ -368,7 +378,7 @@ const Sidebar = (props) => {
                   )}
                 </li>
                 <li
-                  className={`${"/vendors" === pathName || "/add-ledger" === pathName
+                  className={`${"/purchases" === pathName || "/add-ledger" === pathName
                       ? "active"
                       : ""
                     }`}

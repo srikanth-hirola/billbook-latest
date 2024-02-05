@@ -199,7 +199,6 @@ const PaymentSummary = () => {
                           record?.Phone?.includes(searchText) ||
                           record?.Invoice?.includes(searchText) 
                           // record?.Transaction?.includes(searchText)
-
                         )}
                         rowKey={(record) => record.id}
                       />

@@ -313,7 +313,7 @@ const [validation2,setValidation2]=useState(
             {/* Page Header */}
             <div className="page-header">
               <div className="content-page-header">
-                <h5>GST</h5>
+                <h5>Currency List - GST</h5>
                 <Input className="searh-input"
         placeholder="Search by name or phone number"
         value={searchText}
@@ -321,7 +321,7 @@ const [validation2,setValidation2]=useState(
         style={{ width: 300, marginBottom:0,padding:6,border: "none",boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)" }}
       />
       <Space>
-        <button onClick={handleReset} size="small" style={{ width: 90,padding:7,background:"#ed2020",border: "none",boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)",borderRadius:7,color:"#fff",position:"relative",left:"-168px"}}>
+        <button onClick={handleReset} size="small" style={{ width: 90,padding:7,background:"#ed2020",border: "none",boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)",borderRadius:7,color:"#fff",position:"relative",left:"-56px"}}>
           Reset
         </button>
       </Space>

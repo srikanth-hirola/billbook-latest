@@ -18446,3 +18446,9 @@ yellow // #f9dc0b */
 .sidebar .sidebar-menu > ul > li.active a span {
   top: 12px !important;
 }
+
+.sidebar .sidebar-menu > ul > li.active a {
+  background-color: #E1FFED;
+  color: #33B469;
+  position: relative;
+}
