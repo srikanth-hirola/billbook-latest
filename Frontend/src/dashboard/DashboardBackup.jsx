@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './DashboardBackup.css'
 import Visitorschart from './VisitorsChart';
-const DashboardBackup = () => {
+const   DashboardBackup = ({ total , invoice , customer}) => {
+   
     return (
+
+        
         <>
             <div className='todaysales-parent'>
                 <div className="row">
@@ -33,8 +36,8 @@ const DashboardBackup = () => {
                                                             <img src="/images/billbookicon.png" alt="" />
                                                         </div>
                                                         <div className='totalorders-sub2-content-text'>
-                                                            <h5>$1k</h5>
-                                                            <p className='totalsales'>Total Sales</p>
+                                                            <h5>{total}</h5>
+                                                            <p className='totalsales'>Total Revenue</p>
                                                             {/* <p className='todaysales-sub2-content-day'>+8% from yesterday</p> */}
                                                         </div>
 
@@ -46,8 +49,8 @@ const DashboardBackup = () => {
                                                             <img src="/images/billbookicon4.png" alt="" />
                                                         </div>
                                                         <div className='totalorders-sub2-content-text'>
-                                                            <h5>300</h5>
-                                                            <p className='totalsales'>Total Orders</p>
+                                                            <h5>8</h5>
+                                                            <p className='totalsales'>Total Customers</p>
                                                             {/* <p className='todaysales-sub2-content-day'>+5% from yesterday</p> */}
                                                         </div>
                                                     </div>
@@ -58,8 +61,8 @@ const DashboardBackup = () => {
                                                             <img src="/images/billbookicon3.png" alt="" />
                                                         </div>
                                                         <div className='totalorders-sub2-content-text'>
-                                                            <h5>5</h5>
-                                                            <p className='totalsales'>Product Sold</p>
+                                                            <h5>{invoice.length}</h5>
+                                                            <p className='totalsales'>Total Invoices</p>
                                                             {/* <p className='todaysales-sub2-content-day'>+1,2% from yesterday</p> */}
                                                         </div>
 
@@ -71,8 +74,8 @@ const DashboardBackup = () => {
                                                             <img src="/images/billbookicon2.png" alt="" />
                                                         </div>
                                                         <div className='totalorders-sub2-content-text'>
-                                                            <h5>8</h5>
-                                                            <p className='totalsales'>New Customers</p>
+                                                            <h5>15</h5>
+                                                            <p className='totalsales'>Total Products</p>
                                                             {/* <p className='todaysales-sub2-content-day'>0,5% from yesterday</p> */}
                                                         </div>
                                                     </div>

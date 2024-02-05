@@ -168,9 +168,9 @@ const Header = (props) => {
       </Link>
       {/* /Mobile Menu Toggle */}
       {/* Header Menu */}
-      <ul className="nav nav-tabs user-menu">
+      <ul className="nav nav-tabs user-menu ">
         {/* Flag */}
-        <li className="nav-item dropdown has-arrow flag-nav">
+        <li className="nav-item dropdown has-arrow flag-nav d-none">
           <Link
             className="nav-link dropdown-toggle"
             data-bs-toggle="dropdown"

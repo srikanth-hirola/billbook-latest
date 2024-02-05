@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import * as XLSX from 'xlsx';
 import { Link } from "react-router-dom";
 import Header from "../layouts/Header";
 import Sidebar from "../layouts/Sidebar";
 import FeatherIcon from "feather-icons-react";
 import "../_components/antd.css";
-import {Table } from "antd";
+import {Button, Table, Typography } from "antd";
 import {
   onShowSizeChange,
   itemRender,
@@ -12,7 +13,9 @@ import {
 import AddVendor from "../vendors/addVendor";
 import InvoiceHead from "./invoiceHead";
 import axios from "axios";
-
+import { DatePicker } from 'antd';
+const { RangePicker } = DatePicker;
+const { Text } = Typography;
 const InvoiceList = () => {
   const [menu, setMenu] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -26,7 +29,9 @@ const InvoiceList = () => {
   const handleSearch = (value) => {
     setSearchText(value);
   };
-
+  const [dateRange, setDateRange] = useState([]);
+  const [filteredDatasource, setFilteredDatasource] = useState([]);
+  
   const handleReset = () => {
     setSearchText("");
   };
@@ -71,7 +76,35 @@ const InvoiceList = () => {
       console.error("Error deleting invoice:", error);
     }
   };
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/addInvoice/invoices")
+      .then((response) => {
+        console.log("invoices", response.data);
+        setDatasource(response.data);
+        setFilteredDatasource(response.data); // Initialize filteredDatasource with all invoices
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
+
+  const reversedDataSource = filteredDatasource ? [...filteredDatasource].reverse() : [];
+
+
+  const handleDateRangeChange = (dates) => {
+    setDateRange(dates);
+  
+    // Filter invoices based on the selected date range
+    const filteredData = datasource.filter((record) => {
+      const invoiceDate = new Date(record.invoiceDate);
+      return invoiceDate >= dates[0] && invoiceDate <= dates[1];
+    });
+  
+    setFilteredDatasource(filteredData);
+  };
+    
   const confirmDeleteInvoice = (invoiceId) => {
     if (window.confirm("Are you sure you want to delete this invoice?")) {
       handleDeleteInvoice(invoiceId);
@@ -100,6 +133,35 @@ const InvoiceList = () => {
       });
   }, []);
 
+
+// Functions for the download excel
+const handleDownloadFilteredData = () => {
+  const filteredDataWorkbook = XLSX.utils.book_new();
+  const filteredDataWorksheet = XLSX.utils.json_to_sheet(filteredDatasource);
+  XLSX.utils.book_append_sheet(filteredDataWorkbook, filteredDataWorksheet, 'FilteredData');
+  XLSX.writeFile(filteredDataWorkbook, 'filtered_data.xlsx');
+};
+
+const handleDownloadAllData = () => {
+  const allDataWorkbook = XLSX.utils.book_new();
+  const allDataWorksheet = XLSX.utils.json_to_sheet(datasource);
+  XLSX.utils.book_append_sheet(allDataWorkbook, allDataWorksheet, 'AllData');
+  XLSX.writeFile(allDataWorkbook, 'all_data.xlsx');
+};
+// Functions for the download excel
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'PAID':
+        return '#33B469';
+      case 'UNPAID':
+        return '#ed2020';
+      case 'PARTIALLY PAID':
+        return '#f9dc0b';
+      default:
+        return 'white'; // Default background color
+    }
+  };
   const deletedInvoicesColumns = [
     {
       title: "Invoice ID",
@@ -170,10 +232,15 @@ const InvoiceList = () => {
       },
     },
     {
-      title: "Status",
-      dataIndex: "invoiceStatus",
-      sorter: (a, b) => a.invoiceStatus.length - b.invoiceStatus.length,
-    },
+    title: 'Status',
+    dataIndex: 'invoiceStatus',
+    sorter: (a, b) => a.invoiceStatus.length - b.invoiceStatus.length,
+    render: (text) => (
+      <span style={{ backgroundColor: getStatusColor(text), color: 'white', padding: '5px 10px', borderRadius: '5px' }}>
+        {text}
+      </span>
+    ),
+  },
 
     {
       title: "Action",
@@ -289,9 +356,14 @@ const InvoiceList = () => {
       },
     },
     {
-      title: "Status",
-      dataIndex: "invoiceStatus",
+      title: 'Status',
+      dataIndex: 'invoiceStatus',
       sorter: (a, b) => a.invoiceStatus.length - b.invoiceStatus.length,
+      render: (text) => (
+        <span style={{ backgroundColor: getStatusColor(text), color: 'white', padding: '5px 10px', borderRadius: '5px' }}>
+          {text}
+        </span>
+      ),
     },
     {
       title: "Action",
@@ -365,11 +437,11 @@ const InvoiceList = () => {
                           <Link to="/invoice-paid">Paid</Link>
                         </li>
                         <li>
-                          <Link to="/invoice-overdue">Overdue</Link> 
-                        </li> 
-                        <li>
                           <Link to="/invoice-outstanding">Outstanding</Link> 
                         </li>
+                        <li>
+                          <Link to="/invoice-overdue">Partially Paid</Link> 
+                        </li> 
                         <li>
                           <Link to="/invoice-draft">Draft</Link>
                         </li>
@@ -392,24 +464,56 @@ const InvoiceList = () => {
                 <div className="card-table">
                   <div className="card-body invoiceList">
                     <div className="table-responsive table-hover">
-                    <Table
-                        pagination={{
-                          total: datasource ? datasource.length : 0,
+                    
+   <div className="filter-section">
+   <div className="">
+   <RangePicker onChange={handleDateRangeChange} />
+   </div>
+   <div className="">
+   <Button onClick={handleDownloadAllData} style={{ marginTop: 10 }}>
+        Download All Data
+      </Button>
+   </div>
+{dateRange.length > 0 && (
+  <>
+  <Text>
+      Total Invoices after filter: {filteredDatasource.length}
+    </Text>
+    <Button onClick={handleDownloadFilteredData} style={{ marginLeft: 10 }}>
+      Download Filtered Data
+    </Button>
+  
+  </>
+)}
+   </div>
 
-                          showTotal: (total, range) =>
-                            `Showing ${range[0]} to ${range[1]} of ${total} entries`,
-                          showSizeChanger: true,
-                          onShowSizeChange: onShowSizeChange,
-                          itemRender: itemRender,
-                        }}
-                        columns={columns}
-                        // dataSource={datasource.filter((record) =>
-                        //   record?.customerName?.toLowerCase().includes(searchText.toLowerCase()) ||
-                        //   record?.invoiceNumber?.includes(searchText)
-                        // )}
-                        dataSource={datasource}
-                        rowKey={(record) => record.id}
-                      />
+   <Table
+    pagination={{
+      total: reversedDataSource.length,
+      showTotal: (total, range) =>
+        `Showing ${range[0]} to ${range[1]} of ${total} entries`,
+      showSizeChanger: true,
+      itemRender: itemRender,
+    }}
+    columns={columns}
+    dataSource={reversedDataSource}
+    rowKey={(record) => record.id}
+  />
+      {/* <Table
+        pagination={{
+          total: filteredDatasource ? filteredDatasource.length : 0,
+          showTotal: (total, range) =>
+            `Showing ${range[0]} to ${range[1]} of ${total} entries`,
+          showSizeChanger: true,
+          itemRender: itemRender,
+        }}
+        columns={columns}
+        dataSource={filteredDatasource}
+        rowKey={(record) => record.id}
+      /> */}
+
+   
+
                     </div>
                   </div>
                 </div>
@@ -417,7 +521,7 @@ const InvoiceList = () => {
             </div>
             {/* /Table */}
             {/* Deleted Invoices Table */}
-            <div className="row">
+            <div className="row d-none">
               <div className="col-sm-12">
                 <div className="card-table">
                   <div className="card-body invoiceList">

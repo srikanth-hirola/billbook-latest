@@ -6,7 +6,8 @@ import FeatherIcon from "feather-icons-react";
 import Data from "../assets/jsons/invoicepaid";
 // import Table from "../_components/Datatable/datatable";
 import "../_components/antd.css";
-import { Pagination, Table } from "antd";
+import { Button, Modal } from "antd";
+import { Table, DatePicker, Typography } from "antd";
 import {
   onShowSizeChange,
   itemRender,
@@ -14,13 +15,17 @@ import {
 import AddVendor from "../vendors/addVendor";
 import InvoiceHead from "./invoiceHead";
 import axios from "axios";
-
+import * as XLSX from "xlsx";
+const { RangePicker } = DatePicker;
+const { Text } = Typography;
 const InvoicePaid = () => {
 
   const [menu, setMenu] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [show, setShow] = useState(false);
   const [datasource, setDatasource] = useState([])
+  const [filteredDatasource, setFilteredDatasource] = useState([]);
+  const [dateRange, setDateRange] = useState([]);
   const toggleMobileMenu = () => {
     setMenu(!menu);
   };
@@ -38,135 +43,76 @@ const InvoicePaid = () => {
     onChange: onSelectChange,
   };
 
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:8000/api/addInvoice/invoices")
+  //     .then((response) => {
+  //       const paidInvoices = response.data.filter(
+  //         (invoice) => invoice.invoiceStatus === 'PAID'
+  //       );
+  //       setDatasource(paidInvoices);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // }, []);
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/addInvoice/invoices")
       .then((response) => {
-        const paidInvoices = response.data.filter((invoice) =>
-          invoice.payments.some((payment) => payment.paymentStatus === 'Paid')
+        const paidInvoices = response.data.filter(
+          (invoice) => invoice.invoiceStatus === "PAID"
         );
         setDatasource(paidInvoices);
+        setFilteredDatasource(paidInvoices); // Initialize filteredDatasource with all paid invoices
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, []);
-  // console.log("pidinvoices", datasource)
 
-//   const columns1111 = [
-//     {
-//       title: "Invoice ID",
-//       dataIndex: "Invoice",
-//       render: (text, record) => (
-//         <Link to="/invoice-details" className="invoice-link">
-//           {record.Invoice}
-//         </Link>
-//       ),
-//       sorter: (a, b) => a.Invoice.length - b.Invoice.length,
-//     },
-//     {
-//       title: "Category",
-//       dataIndex: "Category",
-//       sorter: (a, b) => a.Category.length - b.Category.length,
-//     },
-//     {
-//       title: "Created On",
-//       dataIndex: "Created",
-//       sorter: (a, b) => a.Created.length - b.Created.length,
-//     },
-//     {
-//       title: "Invoice To",
-//       dataIndex: "Name",
-//       render: (text, record) => (
-//         <h2 className="table-avatar">
-//           <Link to="/profile" className="avatar avatar-sm me-2">
-//             <img
-//               className="avatar-img rounded-circle"
-//               src={record.img}
-//               alt="User Image"
-//             />
-//           </Link>
-//           <Link to="/profile">
-//             {record.Name} <span>{record.email}</span>
-//           </Link>
-//         </h2>
-//       ),
-//       sorter: (a, b) => a.Name.length - b.Name.length,
-//     },
-//     {
-//       title: "Total Amount",
-//       dataIndex: "Total",
-//       sorter: (a, b) => a.Total.length - b.Total.length,
-//     },
-//     {
-//       title: "Paid Amount",
-//       dataIndex: "Paid",
-//       sorter: (a, b) => a.Paid.length - b.Paid.length,
-//     },
-//     {
-//       title: "Payment Mode",
-//       dataIndex: "Payment",
-//       sorter: (a, b) => a.Payment.length - b.Payment.length,
-//     },
-//     {
-//       title: "Balance",
-//       dataIndex: "Balance",
-//       sorter: (a, b) => a.Balance.length - b.Balance.length,
-//     },
-//     {
-//       title: "Due Date",
-//       dataIndex: "Due",
-//       sorter: (a, b) => a.Due.length - b.Due.length,
-//     },
-//     {
-//       title: "Status",
-//       dataIndex: "Status",
-//       render: (text, record) => (
-//         <span className="badge bg-success-light">{text}</span>
-//       ),
-//       sorter: (a, b) => a.Status.length - b.Status.length,
-//     },
-//     {
-//       title: "Action",
-//       dataIndex: "Action",
-//       render: (text, record) => (
-//         <>
-//           <div className="text-end">
-//             <div className="dropdown dropdown-action">
-//               <Link
-//                 to="#"
-//                 className="btn-action-icon"
-//                 data-bs-toggle="dropdown"
-//                 aria-expanded="false"
-//               >
-//                 <i className="fas fa-ellipsis-v" />
-//               </Link>
-//               <div className="dropdown-menu dropdown-menu-end">
-//                 <Link className="dropdown-item" to="/edit-invoice">
-//                   <i className="far fa-edit me-2" />
-//                   Edit
-//                 </Link>
-//                 <Link className="dropdown-item" to="/invoice-details">
-//                   <i className="far fa-eye me-2" />
-//                   View
-//                 </Link>
-//                 <Link
-//                   className="dropdown-item"
-//                   to="#"
-//                   data-bs-toggle="modal"
-//                   data-bs-target="#delete_modal"
-//                 >
-//                   <i className="far fa-trash-alt me-2" />
-//                   Delete
-//                 </Link>
-//               </div>
-//             </div>
-//           </div>
-//         </>
-//       ),
-//       sorter: (a, b) => a.Action.length - b.Action.length,
-//     },
-//   ];
+  const handleDateRangeChange = (dates) => {
+    setDateRange(dates);
+
+    // Filter invoices based on the selected date range
+    const filteredData = datasource.filter((record) => {
+      const invoiceDate = new Date(record.invoiceDate);
+      return invoiceDate >= dates[0] && invoiceDate <= dates[1];
+    });
+
+    setFilteredDatasource(filteredData);
+  };
+
+  const handleDownloadFilteredData = () => {
+    const filteredDataWorkbook = XLSX.utils.book_new();
+    const filteredDataWorksheet = XLSX.utils.json_to_sheet(filteredDatasource);
+    XLSX.utils.book_append_sheet(
+      filteredDataWorkbook,
+      filteredDataWorksheet,
+      "FilteredData"
+    );
+    XLSX.writeFile(filteredDataWorkbook, "filtered_data.xlsx");
+  };
+
+  const handleDownloadAllData = () => {
+    const allDataWorkbook = XLSX.utils.book_new();
+    const allDataWorksheet = XLSX.utils.json_to_sheet(datasource);
+    XLSX.utils.book_append_sheet(allDataWorkbook, allDataWorksheet, "AllData");
+    XLSX.writeFile(allDataWorkbook, "all_data.xlsx");
+  };
+console.log("paidinvioces",datasource)  
+const getStatusColor = (status) => {
+  switch (status) {
+    case 'PAID':
+      return '#33B469';
+    case 'UNPAID':
+      return '#ed2020';
+    case 'PARTIALLY PAID':
+      return '#f9dc0b';
+    default:
+      return 'white'; // Default background color
+  }
+};
 
   const columns = [
     {
@@ -267,44 +213,14 @@ const InvoicePaid = () => {
       },
     },
     {
-      title: "Status",
-      dataIndex: "payments",
-      render: (payments, record) => {
-        // Check if there are payments for the current record
-        if (payments.length > 0) {
-          // Get the last payment in the payments array
-          const lastPayment = payments[payments.length - 1];
-
-          // Get the invoice date and due date from the record
-          // const invoiceDate = new Date(record.invoiceDate);
-          // const dueDate = new Date(record.dueDate);
-          const invoiceDate = new Date(record.invoiceDate);
-          const dueDate = new Date(record.dueDate);
-
-          // Check if the last payment balance is 0 (Paid)
-          if (lastPayment.balance === 0) {
-            return <span className={`badge bg-success-light`}>Paid</span>;
-          } else if (invoiceDate > dueDate) {
-            // If the balance is not 0 and invoice date is later than due date, consider it as overdue
-            const overdueDays = Math.floor(
-              (invoiceDate - dueDate) / (1000 * 60 * 60 * 24)
-            );
-            return (
-              <span className={`badge bg-danger-light`}>
-                Overdue by {overdueDays} days
-              </span>
-            );
-          } else {
-            // If the balance is not 0 and invoice date is not later than due date, consider it as partially paid
-            return (
-              <span className={`badge bg-warning-light`}>Partially Paid</span>
-            );
-          }
-        } else {
-          // If there are no payments, consider it as unpaid
-          return <span className={`badge bg-success-light`}>Unpaid</span>;
-        }
-      },
+      title: 'Status',
+      dataIndex: 'invoiceStatus',
+      sorter: (a, b) => a.invoiceStatus.length - b.invoiceStatus.length,
+      render: (text) => (
+        <span style={{ backgroundColor: getStatusColor(text), color: 'white', padding: '5px 10px', borderRadius: '5px' }}>
+          {text}
+        </span>
+      ),
     },
     {
       title: "Action",
@@ -350,8 +266,26 @@ const InvoicePaid = () => {
       ),
       sorter: (a, b) => a.action.length - b.action.length,
     },
+    {
+      title: "Download",
+      dataIndex: "download",
+      render: (text, record) => (
+        <Button onClick={() => handleDownloadSingleData(record)}>
+          Download
+        </Button>
+      ),
+    },
   ];
-
+  const handleDownloadSingleData = (record) => {
+    const singleDataWorkbook = XLSX.utils.book_new();
+    const singleDataWorksheet = XLSX.utils.json_to_sheet([record]);
+    XLSX.utils.book_append_sheet(
+      singleDataWorkbook,
+      singleDataWorksheet,
+      "SingleData"
+    );
+    XLSX.writeFile(singleDataWorkbook, "single_data.xlsx");
+  };
   return (
     <>
       <div className={`main-wrapper ${menu ? "slide-nav" : ""}`}>
@@ -408,7 +342,7 @@ const InvoicePaid = () => {
                 <div className="card-table">
                   <div className="card-body invoiceList">
                     <div className="table-responsive table-hover">
-                      <Table
+                      {/* <Table
                         pagination={{
                           total: datasource.length,
                           showTotal: (total, range) =>
@@ -421,7 +355,37 @@ const InvoicePaid = () => {
                         columns={columns}
                         dataSource={datasource}
                         rowKey={(record) => record.id}
-                      />
+                      /> */}
+                      <RangePicker onChange={handleDateRangeChange} />
+
+{dateRange.length > 0 && (
+  <>
+    <Button onClick={handleDownloadFilteredData} style={{ marginLeft: 10 }}>
+      Download Filtered Data
+    </Button>
+    <Text>
+      Total Invoices after filter: {filteredDatasource.length}
+    </Text>
+  </>
+)}
+
+<Button onClick={handleDownloadAllData} style={{ marginTop: 10 }}>
+  Download All Data
+</Button>
+
+<Table
+  pagination={{
+    total: filteredDatasource ? filteredDatasource.length : 0,
+    showTotal: (total, range) =>
+      `Showing ${range[0]} to ${range[1]} of ${total} entries`,
+    showSizeChanger: true,
+    itemRender: itemRender,
+  }}
+  rowSelection={rowSelection}
+  columns={columns}
+  dataSource={filteredDatasource}
+  rowKey={(record) => record.id}
+/>
                     </div>
                   </div>
                 </div>
