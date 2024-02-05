@@ -792,7 +792,7 @@ return (
                     />
                     {!validation.website.isValid && (
                       <div className="invalid-feedback">{validation.website.message}</div>
-                    )}
+                    )} 
                     {websiteError && <span className="text-danger">{websiteError}</span>}
                   </div>
                   <div className="col-md-4">
@@ -818,7 +818,7 @@ return (
                     <div className="col-md-6">
                       <h2 className='mt-3 mb-3 fs-4'>Billing Address</h2>
                       <div className="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 mb-3">
                           <label for="inputEmail4" class="form-label">Name <span className="text-danger">*</span></label>
                           <input type="text" class={`form-control ${!validation.billingAddress.name.isValid ? "is-invalid" : ""}`} id="inputEmail4" value={formData.billingAddress.name} name='billingAddress.name'
                             onChange={(e) => handleFieldChange(e, 'billingAddress.name', e.target.value)}
@@ -830,7 +830,7 @@ return (
                           )}
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 mb-3">
                           <label for="inputAddress" class="form-label">Address<span className="text-danger">*</span></label>
                           <input type="text" class={`form-control ${!validation.billingAddress.addressLine1.isValid ? "is-invalid" : ""}`} id="inputAddress" placeholder="1234 Main St" value={formData.billingAddress.addressLine1} name='billingAddress'
                             onChange={(e) => handleFieldChange(e, 'billingAddress.addressLine1', 'addressLine1')} />
@@ -839,7 +839,7 @@ return (
                           )}
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                           <label for="inputAddress2" class="form-label">Address 2<span className="text-danger">*</span></label>
                           <input type="text" class={`form-control ${!validation.billingAddress.addressLine2.isValid ? "is-invalid" : ""}`} id="inputAddress2" placeholder="Apartment, studio, or floor" value={formData.billingAddress.addressLine2}
                             onChange={(e) => handleFieldChange(e, 'billingAddress.addressLine2', 'addressLine2')} />
@@ -847,7 +847,7 @@ return (
                             <div className="invalid-feedback">{validation.billingAddress.addressLine2.message}</div>
                           )}
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                           <label for="inputAddress2" class="form-label">Pincode<span className="text-danger">*</span></label>
                           <input type="number" class={`form-control ${!validation.billingAddress.pincode.isValid ? "is-invalid" : ""}`} id="Pincode" placeholder="Enter Pincode" value={formData.billingAddress.pincode}
                             onChange={(e) => handleFieldChange(e, 'billingAddress.pincode', 'pincode')} />
@@ -951,7 +951,7 @@ return (
                       <div className="col-md-6">
                         <h2 className='mt-3 mb-3 fs-4'>Shipping Address</h2>
                         <div className="row">
-                          <div class="col-md-12">
+                          <div class="col-md-12 mb-3">
                             <label for="inputEmail4" class="form-label">Name <span className="text-danger">*</span></label>
                             <input type="name" class={`form-control ${!validation.shippingAddress.name ? "is-invalid" : ""}`} id="inputEmail4" value={formData.shippingAddress.name}
                               onChange={(e) => handleFieldChange(e, 'shippingAddress.name', 'name')} />
@@ -960,7 +960,7 @@ return (
                             )}
                           </div>
 
-                          <div class="col-md-12">
+                          <div class="col-md-12 mb-3">
                             <label for="inputAddress" class="form-label">Address <span className="text-danger">*</span></label>
                             <input type="text" class={`form-control ${!validation.shippingAddress.addressLine1 ? "is-invalid" : ""}`} id="inputAddress" placeholder="1234 Main St" value={formData.shippingAddress.addressLine1}
                               onChange={(e) => handleFieldChange(e, 'shippingAddress.addressLine1', 'addressLine1')} />
@@ -969,7 +969,7 @@ return (
                             )}
                           </div>
 
-                          <div class="col-md-6">
+                          <div class="col-md-6 mb-3">
                             <label for="inputAddress2" class="form-label">Address 2 <span className="text-danger">*</span></label>
                             <input type="text" class={`form-control ${!validation.shippingAddress.addressLine2 ? "is-invalid" : ""}`} id="inputAddress2" placeholder="Apartment, studio, or floor" value={formData.shippingAddress.addressLine2}
                               onChange={(e) => handleFieldChange(e, 'shippingAddress.addressLine2', 'addressLine2')} />
@@ -977,7 +977,7 @@ return (
                               <div className="invalid-feedback">Please enter a billing name.</div>
                             )}
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-6 mb-3">
                             <label for="inputAddress2" class="form-label">Pincode <span className="text-danger">*</span></label>
                             <input type="text" class={`form-control ${!validation.shippingAddress.pincode ? "is-invalid" : ""}`} id="Pincode" placeholder="Enter Pincode" value={formData.shippingAddress.pincode}
                               onChange={(e) => handleFieldChange(e, 'shippingAddress.pincode', 'pincode')} />
@@ -986,7 +986,7 @@ return (
                             )}
                           </div>
                           <div className="row">
-                            <div className='col-md-6'>
+                            <div className='col-md-6 mb-3'>
                               <label className='form-label' htmlFor="countryDropdownTwo">Select a Country: <span className="text-danger">*</span></label>
                               <select
                                 id="countryDropdownTwo"
@@ -1006,7 +1006,7 @@ return (
                               )}
                               <br />
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-6 mb-3">
                               {selectedBillingCountry && (
                                 <div>
                                   <label className='form-label' htmlFor="stateDropdownTwo">Select a State: <span className="text-danger">*</span></label>
@@ -1030,7 +1030,7 @@ return (
                                 </div>
                               )}
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-6 mb-3">
 
                               {selectedBillingState && (
                                 <div>

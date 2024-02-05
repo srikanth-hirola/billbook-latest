@@ -5,7 +5,7 @@ import Header from "../layouts/Header";
 import Sidebar from "../layouts/Sidebar";
 import FeatherIcon from "feather-icons-react";
 import "../_components/antd.css";
-import {Button, Table, Typography } from "antd";
+import { Button, Table, Typography } from "antd";
 import {
   onShowSizeChange,
   itemRender,
@@ -31,7 +31,7 @@ const InvoiceList = () => {
   };
   const [dateRange, setDateRange] = useState([]);
   const [filteredDatasource, setFilteredDatasource] = useState([]);
-  
+
   const handleReset = () => {
     setSearchText("");
   };
@@ -95,16 +95,16 @@ const InvoiceList = () => {
 
   const handleDateRangeChange = (dates) => {
     setDateRange(dates);
-  
+
     // Filter invoices based on the selected date range
     const filteredData = datasource.filter((record) => {
       const invoiceDate = new Date(record.invoiceDate);
       return invoiceDate >= dates[0] && invoiceDate <= dates[1];
     });
-  
+
     setFilteredDatasource(filteredData);
   };
-    
+
   const confirmDeleteInvoice = (invoiceId) => {
     if (window.confirm("Are you sure you want to delete this invoice?")) {
       handleDeleteInvoice(invoiceId);
@@ -134,21 +134,21 @@ const InvoiceList = () => {
   }, []);
 
 
-// Functions for the download excel
-const handleDownloadFilteredData = () => {
-  const filteredDataWorkbook = XLSX.utils.book_new();
-  const filteredDataWorksheet = XLSX.utils.json_to_sheet(filteredDatasource);
-  XLSX.utils.book_append_sheet(filteredDataWorkbook, filteredDataWorksheet, 'FilteredData');
-  XLSX.writeFile(filteredDataWorkbook, 'filtered_data.xlsx');
-};
+  // Functions for the download excel
+  const handleDownloadFilteredData = () => {
+    const filteredDataWorkbook = XLSX.utils.book_new();
+    const filteredDataWorksheet = XLSX.utils.json_to_sheet(filteredDatasource);
+    XLSX.utils.book_append_sheet(filteredDataWorkbook, filteredDataWorksheet, 'FilteredData');
+    XLSX.writeFile(filteredDataWorkbook, 'filtered_data.xlsx');
+  };
 
-const handleDownloadAllData = () => {
-  const allDataWorkbook = XLSX.utils.book_new();
-  const allDataWorksheet = XLSX.utils.json_to_sheet(datasource);
-  XLSX.utils.book_append_sheet(allDataWorkbook, allDataWorksheet, 'AllData');
-  XLSX.writeFile(allDataWorkbook, 'all_data.xlsx');
-};
-// Functions for the download excel
+  const handleDownloadAllData = () => {
+    const allDataWorkbook = XLSX.utils.book_new();
+    const allDataWorksheet = XLSX.utils.json_to_sheet(datasource);
+    XLSX.utils.book_append_sheet(allDataWorkbook, allDataWorksheet, 'AllData');
+    XLSX.writeFile(allDataWorkbook, 'all_data.xlsx');
+  };
+  // Functions for the download excel
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -211,7 +211,7 @@ const handleDownloadAllData = () => {
       sorter: (a, b) => a.grandTotal.length - b.grandTotal.length,
     },
     {
-      title: "Balance", 
+      title: "Balance",
       dataIndex: "balance",
       sorter: (a, b) => a.balance.length - b.balance.length,
     },
@@ -232,15 +232,15 @@ const handleDownloadAllData = () => {
       },
     },
     {
-    title: 'Status',
-    dataIndex: 'invoiceStatus',
-    sorter: (a, b) => a.invoiceStatus.length - b.invoiceStatus.length,
-    render: (text) => (
-      <span style={{ backgroundColor: getStatusColor(text), color: 'white', padding: '5px 10px', borderRadius: '5px' }}>
-        {text}
-      </span>
-    ),
-  },
+      title: 'Status',
+      dataIndex: 'invoiceStatus',
+      sorter: (a, b) => a.invoiceStatus.length - b.invoiceStatus.length,
+      render: (text) => (
+        <span style={{ backgroundColor: getStatusColor(text), color: 'white', padding: '5px 10px', borderRadius: '5px' }}>
+          {text}
+        </span>
+      ),
+    },
 
     {
       title: "Action",
@@ -428,20 +428,20 @@ const handleDownloadAllData = () => {
                     <div className="invoices-tabs">
                       <ul>
                         <li>
-                          <Link to="/ipnvoices" className="active">
+                          <Link to="/invoice-list" className="active">
                             All Invoice
                           </Link>
                         </li>
-                        { } 
+                        { }
                         <li>
                           <Link to="/invoice-paid">Paid</Link>
                         </li>
                         <li>
-                          <Link to="/invoice-outstanding">Outstanding</Link> 
+                          <Link to="/invoice-outstanding">Outstanding</Link>
                         </li>
                         <li>
-                          <Link to="/invoice-overdue">Partially Paid</Link> 
-                        </li> 
+                          <Link to="/invoice-overdue">Overdue</Link>
+                        </li>
                         <li>
                           <Link to="/invoice-draft">Draft</Link>
                         </li>
@@ -464,42 +464,45 @@ const handleDownloadAllData = () => {
                 <div className="card-table">
                   <div className="card-body invoiceList">
                     <div className="table-responsive table-hover">
-                    
-   <div className="filter-section">
-   <div className="">
-   <RangePicker onChange={handleDateRangeChange} />
-   </div>
-   <div className="">
-   <Button onClick={handleDownloadAllData} style={{ marginTop: 10 }}>
-        Download All Data
-      </Button>
-   </div>
-{dateRange.length > 0 && (
-  <>
-  <Text>
-      Total Invoices after filter: {filteredDatasource.length}
-    </Text>
-    <Button onClick={handleDownloadFilteredData} style={{ marginLeft: 10 }}>
-      Download Filtered Data
-    </Button>
-  
-  </>
-)}
-   </div>
 
-   <Table
-    pagination={{
-      total: reversedDataSource.length,
-      showTotal: (total, range) =>
-        `Showing ${range[0]} to ${range[1]} of ${total} entries`,
-      showSizeChanger: true,
-      itemRender: itemRender,
-    }}
-    columns={columns}
-    dataSource={reversedDataSource}
-    rowKey={(record) => record.id}
-  />
-      {/* <Table
+                      <div className="row">
+                        <div className="col-md-6 my-2">
+                          <RangePicker onChange={handleDateRangeChange} />
+                        </div>
+                        <div className="col-md-6 my-2">
+                          <div className="invoice-list-download-all-data-btn">
+                            <Button onClick={handleDownloadAllData}>
+                              Download All Data
+                            </Button>
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          {dateRange.length > 0 && (
+                            <>
+                              <Text>
+                                Total Invoices after filter: {filteredDatasource.length}
+                              </Text>
+                              <Button onClick={handleDownloadFilteredData} style={{ marginLeft: 10 }} className="my-2">
+                                Download Filtered Data
+                              </Button>
+                            </>
+                          )}
+                        </div>
+                      </div>
+
+                      <Table
+                        pagination={{
+                          total: reversedDataSource.length,
+                          showTotal: (total, range) =>
+                            `Showing ${range[0]} to ${range[1]} of ${total} entries`,
+                          showSizeChanger: true,
+                          itemRender: itemRender,
+                        }}
+                        columns={columns}
+                        dataSource={reversedDataSource}
+                        rowKey={(record) => record.id}
+                      />
+                      {/* <Table
         pagination={{
           total: filteredDatasource ? filteredDatasource.length : 0,
           showTotal: (total, range) =>
@@ -512,7 +515,7 @@ const handleDownloadAllData = () => {
         rowKey={(record) => record.id}
       /> */}
 
-   
+
 
                     </div>
                   </div>

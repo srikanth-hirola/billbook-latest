@@ -99,19 +99,19 @@ const InvoiceOverdue = () => {
     XLSX.utils.book_append_sheet(allDataWorkbook, allDataWorksheet, "AllData");
     XLSX.writeFile(allDataWorkbook, "all_data.xlsx");
   };
-console.log("paidinvioces",datasource)  
-const getStatusColor = (status) => {
-  switch (status) {
-    case 'PAID':
-      return '#33B469';
-    case 'UNPAID':
-      return '#ed2020';
-    case 'PARTIALLY PAID':
-      return '#f9dc0b';
-    default:
-      return 'white'; // Default background color
-  }
-};
+  console.log("paidinvioces", datasource)
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'PAID':
+        return '#33B469';
+      case 'UNPAID':
+        return '#ed2020';
+      case 'PARTIALLY PAID':
+        return '#f9dc0b';
+      default:
+        return 'white'; // Default background color
+    }
+  };
 
   const columns = [
     {
@@ -311,13 +311,13 @@ const getStatusColor = (status) => {
                           </Link>
                         </li>
                         <li>
-                          <Link to="/invoice-paid" className="active">Paid</Link>
+                          <Link to="/invoice-paid">Paid</Link>
                         </li>
                         <li>
-                          <Link to="/invoice-overdue">Overdue</Link> 
+                          <Link to="/invoice-overdue" className="active">Overdue</Link>
                         </li>
                         <li>
-                          <Link to="/invoice-outstanding">Outstanding</Link> 
+                          <Link to="/invoice-outstanding">Outstanding</Link>
                         </li>
                         <li>
                           <Link to="/invoice-draft">Draft</Link>
@@ -355,36 +355,50 @@ const getStatusColor = (status) => {
                         dataSource={datasource}
                         rowKey={(record) => record.id}
                       /> */}
-                      <RangePicker onChange={handleDateRangeChange} />
 
-{dateRange.length > 0 && (
-  <>
-    <Button onClick={handleDownloadFilteredData} style={{ marginLeft: 10 }}>
-      Download Filtered Data
-    </Button>
-    <Text>
-      Total Invoices after filter: {filteredDatasource.length}
-    </Text>
-  </>
-)}
+                      <div className="row">
+                        <div className="col-md-6 my-2">
+                          <RangePicker onChange={handleDateRangeChange} />
+                        </div>
+                        <div className="col-md-6 my-2">
+                          <div className="invoice-list-download-all-data-btn">
+                            <Button onClick={handleDownloadAllData} style={{ marginTop: 10 }}>
+                              Download All Data
+                            </Button>
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          {dateRange.length > 0 && (
+                            <>
+                              <Text>
+                                Total Invoices after filter: {filteredDatasource.length}
+                              </Text>
+                              <Button onClick={handleDownloadFilteredData} style={{ marginLeft: 10 }} className="my-2">
+                                Download Filtered Data
+                              </Button>
+                            </>
+                          )}
+                        </div>
+                      </div>
 
-<Button onClick={handleDownloadAllData} style={{ marginTop: 10 }}>
-  Download All Data
-</Button>
 
-<Table
-  pagination={{
-    total: filteredDatasource ? filteredDatasource.length : 0,
-    showTotal: (total, range) =>
-      `Showing ${range[0]} to ${range[1]} of ${total} entries`,
-    showSizeChanger: true,
-    itemRender: itemRender,
-  }}
-  rowSelection={rowSelection}
-  columns={columns}
-  dataSource={filteredDatasource}
-  rowKey={(record) => record.id}
-/>
+
+
+
+
+                      <Table
+                        pagination={{
+                          total: filteredDatasource ? filteredDatasource.length : 0,
+                          showTotal: (total, range) =>
+                            `Showing ${range[0]} to ${range[1]} of ${total} entries`,
+                          showSizeChanger: true,
+                          itemRender: itemRender,
+                        }}
+                        rowSelection={rowSelection}
+                        columns={columns}
+                        dataSource={filteredDatasource}
+                        rowKey={(record) => record.id}
+                      />
                     </div>
                   </div>
                 </div>
